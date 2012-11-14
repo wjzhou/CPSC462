@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./studentTemplate.xhtml">
+
+            <ui:define name="body">
+
+                <h:form id="form"> 
+                    <p:dataTable id="appointments" var="slot" value="#{makeAppointmentControl.slotByStudent}">  
+
+                        <p:column headerText="From" style="width:24%">  
+                            <h:outputText value="#{slot.starttime}" />  
+                        </p:column>  
+
+                        <p:column headerText="To" style="width:24%">  
+                            <h:outputText value="#{slot.endtime}" />  
+                        </p:column>  
+
+                        <p:column headerText="Advisor" style="width:24%">  
+                            <h:outputText value="#{slot.advisor.name}" />  
+                        </p:column>
+
+                        <p:column style="width:4%">  
+                            <p:commandButton id="selectButton" update=":form:display" oncomplete="confirmDialog.show()" icon="ui-icon-search" title="View">  
+                                <f:setPropertyActionListener value="#{slot}" target="#{makeAppointmentControl.selectedSlot}" />  
+                            </p:commandButton>  
+                        </p:column>  
+
+                    </p:dataTable>  
+
+                    <p:dialog header="Car Detail" widgetVar="appointment dialog" resizable="false" id="confirmDialog"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            <h:outputLabel for="from" value="From:" />
+                            <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" />
+
+                            <h:outputLabel for="to" value="To:" />
+                            <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" />
+
+                            <h:outputLabel for="advisor" value="Advisor:" />
+                            <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" />
+
+                            <p:commandButton type="Cancel" value="Reset" />
+                            <p:commandButton value="Confirm" action="#{makeAppointmentControl.confirmAppointment}" ajax="false"/>
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

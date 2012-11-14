@@ -25,7 +25,7 @@
                     Footer
                 </p:layoutUnit>-->
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+<!--                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Choose Advisor" url="./chooseAdvisor.xhtml" />
@@ -33,18 +33,18 @@
                         </p:submenu>
 
                     </p:menu>
-                </p:layoutUnit>
+                </p:layoutUnit>-->
 
                 <p:layoutUnit position="center">
                     <h:form>
                     <p:growl id="messages" showDetail="true" />
-                    <p:schedule value="#{availableSlotBean.model}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false">
-                        <p:ajax event="eventSelect" listener="#{availableSlotBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
+                    <p:schedule value="#{availableSlotBean.getModel}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false">
 <!--                        <p:ajax event="dateSelect" listener="#{availableSlotBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
+                        <p:ajax event="eventSelect" listener="#{availableSlotBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
                         <p:ajax event="eventMove" listener="#{availableSlotBean.onEventMove}" update="messages" />
                         <p:ajax event="eventResize" listener="#{availableSlotBean.onEventResize}" update="messages" />-->
                     </p:schedule>
-                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+<!--                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                         <h:panelGrid id="eventDetails" columns="2">
                             <h:outputLabel for="title" value="Title:" />
                             <p:inputText id="title" value="#{availableSlotBean.event.title}" required="true"/>
@@ -65,7 +65,7 @@
                             <p:commandButton type="reset" value="Reset" />
                             <p:commandButton value="Save" actionListener="#{availableSlotBean.addEvent}" oncomplete="availableSlotSchedule.update();eventDialog.hide();"/>
                         </h:panelGrid>
-                    </p:dialog>
+                    </p:dialog>-->
                     </h:form>
                 </p:layoutUnit>
 

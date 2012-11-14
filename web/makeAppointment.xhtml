@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./studentTemplate.xhtml">
+            
+            <ui:define name="body">
+                <h:form>
+                    
+                    <p:layout style="min-width:400px;min-height:700px;" id="layout">  
+                         <p:layoutUnit position="west" resizable="true" size="250" minSize="100" maxSize="250">   
+                            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+                                <f:facet name="start">
+                                    <h:graphicImage value="../design/ajaxloading.gif" />  
+                                </f:facet>  
+                                <f:facet name="complete">  
+                                    <h:outputText value="" />  
+                                </f:facet>
+                            </p:ajaxStatus>
+                            <p:growl id="messages" showDetail="true" />                     
+                            <p:panel id="pnl" header="Advisor" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel">   
+                                <p:ajax event="toggle" listener="#{makeAppointmentControl.handleToggle}" update="messages" />  
+                                <h:outputLabel value="Choose Advisor:"/>
+                                <p:selectOneMenu id="advisorChooser" value="#{makeAppointmentControl.advisor}" converter="#{ApplecationManagedBean.advisorConverter}" >
+                                    <f:selectItem itemValue="-1" itemLabel="Any Advisor"/>
+                                    <f:selectItems value="#{applecationManagedBean.advisors}" var="advisor"
+                                                   itemValue="#{advisor}" itemLabel="#{advisor.name}" />                  
+                                    <p:ajax update="schedule" listener="#{makeAppointmentControl.updateModelBasedOnAdvisor}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Choose Reason:"/>
+                                <p:selectOneMenu id="reasonChooser" value="#{makeAppointmentControl.reason}" converter="#{applecationManagedBean.reasonConverter}" >
+                                    <f:selectItem itemValue="-1" itemLabel="Any Advisor"/>
+                                    <f:selectItems value="#{applecationManagedBean.reasons}" var="reason"
+                                                   itemValue="#{reason}" itemLabel="#{reason.reason}" />                  
+                                    <p:ajax update="schedule" listener="#{makeAppointmentControl.updateModelBasedOnAdvisor}"/>
+                                </p:selectOneMenu>
+                               
+                                
+                            </p:panel>  
+                        </p:layoutUnit> 
+                        <p:layoutUnit position="center">                         
+                            <p:schedule id="schedule" value="#{makeAppointmentControl.model}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false">
+                                <p:ajax event="eventSelect" listener="#{makeAppointmentControl.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()"/>
+                            </p:schedule>
+                        </p:layoutUnit>
+                       
+                    </p:layout> 
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                        <h:panelGrid id="eventDetails" columns="2">
+                            <ui:remove>
+                            <h:outputLabel for="status" value="Status:" />
+                            <p:selectOneMenu id="status" value="#{makeAppointmentControl.status}" converter="#{makeAppointmentControl.statusConverter}" >
+                                <f:selectItems value="#{makeAppointmentControl.statusList}"/> 
+                            </p:selectOneMenu>
+                            </ui:remove>
+                            <h:outputLabel for="from" value="From:" />
+                            <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText>
+                                
+                            <h:outputLabel for="to" value="To:" />
+                            <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText>
+                                
+                            <h:outputLabel for="advisor" value="Advisor:" />
+                            <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}"/>
+                            
+                            <ui:remove>
+                            <h:outputLabel for="student" value="Student:" />
+                            <h:outputText id="student" value="#{makeAppointmentControl.event.studentName}"/>
+                            </ui:remove>    
+                            <p:commandButton value="Reset" actionListener="#{makeAppointmentControl.unselect}" oncomplete="eventDialog.hide();"/>
+                            <p:commandButton value="Select" actionListener="#{makeAppointmentControl.select}" oncomplete="makeAppointmentControl.update();eventDialog.hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>                        
+                </h:form>
+            </ui:define>
+                
+        </ui:composition>
+            
+    </body>
+</html>
+    

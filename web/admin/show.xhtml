@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+            
+            <ui:define name="content">
+                <h:form>
+                    <p:layout style="min-width:400px;min-height:700px;" id="layout">                       
+                        <p:layoutUnit position="center">                         
+                            <p:schedule id="schedule" value="#{availableSlotBean.allEventModel}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false">
+<p:ajax event="eventSelect" listener="#{availableSlotBean.onEventSelect}"  />                               
+ <!--<p:ajax event="eventSelect" listener="#{availableSlotBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()"  />-->
+        <!--                        <p:ajax event="dateSelect" listener="#{availableSlotBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />
+                                <p:ajax event="eventMove" listener="#{availableSlotBean.onEventMove}" update="messages" />
+                                <p:ajax event="eventResize" listener="#{availableSlotBean.onEventResize}" update="messages" />-->
+                            </p:schedule>
+                        </p:layoutUnit>
+                        <p:layoutUnit position="east" resizable="true" size="250" minSize="100" maxSize="250">   
+                            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+                                <f:facet name="start">
+                                    <h:graphicImage value="../design/ajaxloading.gif" />  
+                                </f:facet>  
+                                <f:facet name="complete">  
+                                    <h:outputText value="" />  
+                                </f:facet>
+                            </p:ajaxStatus>
+                            <p:growl id="messages" showDetail="true" />                     
+                            <p:panel id="pnl" header="Advisor" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel">   
+                                <p:ajax event="toggle" listener="#{availableSlotBean.handleToggle}" update="messages" />  
+                                <!--<h:outputLabel for="status1" value="Status:" />-->
+                                <p:selectOneMenu id="status1" value="#{availableSlotBean.currentAdvisorByName}" >
+                                    <f:selectItems value="#{availableSlotBean.advisorList}"/> 
+                                    <p:ajax update="schedule" listener="#{availableSlotBean.updateModelBasedOnAdvisor}"/>
+                                </p:selectOneMenu>
+                               
+                                
+                            </p:panel>  
+                        </p:layoutUnit> 
+                    </p:layout> 
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                        <h:panelGrid id="eventDetails" columns="2">
+                            
+                            <h:outputLabel for="status" value="Status:" />
+                            <p:selectOneMenu id="status" value="#{availableSlotBean.status}" converter="#{availableSlotBean.statusConverter}" >
+                                <f:selectItems value="#{availableSlotBean.statusList}"/> 
+                            </p:selectOneMenu>  
+                                
+                            <h:outputLabel for="from" value="From:" />
+                            <p:inputMask id="from" value="#{availableSlotBean.event.startDate}" mask="99/99/9999 99:99">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </p:inputMask>
+                                
+                            <h:outputLabel for="to" value="To:" />
+                            <p:inputMask id="to" value="#{availableSlotBean.event.endDate}" mask="99/99/9999 99:99">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </p:inputMask>
+                                
+                            <h:outputLabel for="advisor" value="Advisor:" />
+                            <p:inputText id="advisor" value="#{availableSlotBean.event.advisorName}"/>
+                            <h:outputLabel for="student" value="Student:" />
+                            <p:inputText id="student" value="#{availableSlotBean.event.studentName}"/>
+                                
+                            <p:commandButton type="reset" value="Reset" />
+                            <p:commandButton value="Save" actionListener="#{availableSlotBean.addEvent}" oncomplete="availableSlotSchedule.update();eventDialog.hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                        
+                </h:form>
+            </ui:define>
+                
+        </ui:composition>
+            
+    </body>
+</html>
+    

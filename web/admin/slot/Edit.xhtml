@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSlotTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSlotLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{slotController.selected.id}" title="#{bundle.EditSlotTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditSlotLabel_starttime}" for="starttime" />
+                    <h:inputText id="starttime" value="#{slotController.selected.starttime}" title="#{bundle.EditSlotTitle_starttime}" required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_starttime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditSlotLabel_endtime}" for="endtime" />
+                    <h:inputText id="endtime" value="#{slotController.selected.endtime}" title="#{bundle.EditSlotTitle_endtime}" required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_endtime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditSlotLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{slotController.selected.status}" title="#{bundle.EditSlotTitle_status}" />
+                    <h:outputLabel value="#{bundle.EditSlotLabel_student}" for="student" />
+                    <h:selectOneMenu id="student" value="#{slotController.selected.student}" title="#{bundle.EditSlotTitle_student}" >
+                        <f:selectItems value="#{studentController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSlotLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{slotController.selected.description}" title="#{bundle.EditSlotTitle_description}" />
+                    <h:outputLabel value="#{bundle.EditSlotLabel_advisor}" for="advisor" />
+                    <h:selectOneMenu id="advisor" value="#{slotController.selected.advisor}" title="#{bundle.EditSlotTitle_advisor}" >
+                        <f:selectItems value="#{advisorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{slotController.update}" value="#{bundle.EditSlotSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSlotViewLink}"/>
+                <br />
+                <h:commandLink action="#{slotController.prepareList}" value="#{bundle.EditSlotShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSlotIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

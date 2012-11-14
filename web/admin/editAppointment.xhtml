@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./adminTemplate.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <!--<p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">-->
+                        <h:panelGrid id="eventDetails" columns="2">
+
+                            <h:outputLabel for="status" value="Status:" />
+                            <p:selectOneMenu id="status" value="#{availableSlotBean.status}" converter="#{availableSlotBean.statusConverter}" >
+                                <f:selectItems value="#{availableSlotBean.statusList}"/> 
+                            </p:selectOneMenu>  
+
+                            <h:outputLabel for="from" value="From:" />
+                            <p:inputMask id="from" value="#{availableSlotBean.event.startDate}" mask="99/99/9999 99:99">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </p:inputMask>
+
+                            <h:outputLabel for="to" value="To:" />
+                            <p:inputMask id="to" value="#{availableSlotBean.event.endDate}" mask="99/99/9999 99:99">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </p:inputMask>
+
+                            <h:outputLabel for="advisor" value="Advisor:" />
+                            <p:inputText id="advisor" value="#{availableSlotBean.event.advisorName}"/>
+                            <h:outputLabel for="student" value="Student:" />
+                            <p:inputText id="student" value="#{availableSlotBean.event.studentName}"/>
+
+                            <p:commandButton type="reset" value="Reset" />
+                            <p:commandButton value="save1" action="#{availableSlotBean.addEvent}" ajax="false"/>
+                            <!--<p:commandButton value="Save" action="#{availableSlotBean.addEvent}" />-->
+
+                        </h:panelGrid>
+                    <!--</p:dialog>-->
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

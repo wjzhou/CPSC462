@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./studentTemplate.xhtml">
+            <ui:define name="body">
+                <h:form>                  
+                   Confirm Appointment
+                    <p:panel header="Student Infomation">   
+                        <p:panelGrid id="Student" columns="2">
+                        <h:outputLabel for="nusername" value="Email:" />
+                        <h:outputText id="username" value="#{studentControl.email}" />
+                       
+                        <h:outputLabel for="type" value="Type:" />  
+                        <h:outputText id="type" value="#{studentControl.type}" converter="#{applecationManagedBean.typeConverter}"/>
+                       
+                        <h:outputLabel for="cwid" value="Cwid:" />
+                        <h:outputText id="cwid" value="#{studentControl.cwid}"/> 
+
+                        <h:outputLabel for="firstName" value="FirstName:" />
+                        <h:outputText id="firstName" value="#{studentControl.firstName}"/>
+                        <h:outputLabel for="lastName" value="LastName:" />
+                        <h:outputText id="lastName" value="#{studentControl.lastName}"/>
+
+                        <h:outputLabel for="phone" value="Day time Phone:" /> 
+                        <h:outputText id="phone" value="#{studentControl.phone}"/>
+                        </p:panelGrid>
+                        </p:panel>
+                    
+                   <p:panel header="Appointment infomation">
+                    <h:panelGrid id="eventDetails" columns="2">
+
+                            <h:outputLabel for="from" value="From:" />
+                            <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" />
+
+                            <h:outputLabel for="to" value="To:" />
+                            <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" />
+
+                            <h:outputLabel for="advisor" value="Advisor:" />
+                            <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" />
+                            
+                            <p:commandButton type="Cancel" value="Reset" />
+                            <p:commandButton value="Confirm" action="#{makeAppointmentControl.confirmAppointment}" ajax="false"/>
+                            <!--<p:commandButton value="Save" action="#{availableSlotBean.addEvent}" />-->
+                        </h:panelGrid>
+                   </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

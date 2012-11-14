@@ -1,0 +1,36 @@
+.ScheduleEventAvailable,
+.ScheduleEventAvailable div,
+.ScheduleEventAvailable span
+{
+    background-color:#0000ff;
+    border-color:#0000ff;
+}
+
+
+.ScheduleEventBOOKED,
+.ScheduleEventBOOKED div,
+.ScheduleEventBOOKED span{
+    background-color:#bf00bf;
+    border-color:#bf00bf;
+}
+
+.ScheduleEventAPPROVED,
+.ScheduleEventAPPROVED div,
+.ScheduleEventAPPROVED span{
+    background-color:#6600ff;
+    border-color:#6600ff;
+}
+.ScheduleEventINVALID,
+.ScheduleEventINVALID div,
+.ScheduleEventINVALID span{
+    background-color:#ef0000;
+    border-color:#ef0000;
+}
+
+.ScheduleEventCANCELED,
+.ScheduleEventCANCELED div,
+.ScheduleEventCANCELED span{
+    background-color:#e79320;
+    border-color:#e79320;
+}
+ 

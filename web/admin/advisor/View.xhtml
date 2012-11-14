@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAdvisorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_preferredLocation}"/>
+                    <h:outputText value="#{advisorController.selected.preferredLocation}" title="#{bundle.ViewAdvisorTitle_preferredLocation}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_advisingTypes}"/>
+                    <h:outputText value="#{advisorController.selected.advisingTypes}" title="#{bundle.ViewAdvisorTitle_advisingTypes}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_id}"/>
+                    <h:outputText value="#{advisorController.selected.id}" title="#{bundle.ViewAdvisorTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_firstname}"/>
+                    <h:outputText value="#{advisorController.selected.firstname}" title="#{bundle.ViewAdvisorTitle_firstname}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_lastname}"/>
+                    <h:outputText value="#{advisorController.selected.lastname}" title="#{bundle.ViewAdvisorTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_email}"/>
+                    <h:outputText value="#{advisorController.selected.email}" title="#{bundle.ViewAdvisorTitle_email}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_password}"/>
+                    <h:outputText value="#{advisorController.selected.password}" title="#{bundle.ViewAdvisorTitle_password}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_phone}"/>
+                    <h:outputText value="#{advisorController.selected.phone}" title="#{bundle.ViewAdvisorTitle_phone}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_name}"/>
+                    <h:outputText value="#{advisorController.selected.name}" title="#{bundle.ViewAdvisorTitle_name}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{advisorController.destroyAndView}" value="#{bundle.ViewAdvisorDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAdvisorEditLink}"/>
+                <br />
+                <h:commandLink action="#{advisorController.prepareCreate}" value="#{bundle.ViewAdvisorCreateLink}" />
+                <br />
+                <h:commandLink action="#{advisorController.prepareList}" value="#{bundle.ViewAdvisorShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAdvisorIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
