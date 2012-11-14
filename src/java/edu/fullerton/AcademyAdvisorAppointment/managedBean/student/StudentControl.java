@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author wujun
  */
-@ManagedBean(name="StudentControl")
+@ManagedBean(name="studentControl")
 @SessionScoped
 public class StudentControl implements Serializable{
 

@@ -31,14 +31,15 @@
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Make Appoinement" url="./makeAppointment.xhtml"/>
-                            <p:menuitem value="View/Edit Appoinement" url="./makeAppointment.xhtml"/>
+                            <p:menuitem value="View/Edit Appoinement" url="./editAppointment.xhtml"/>
+                            <p:menuitem value="Login" url="./login.xhtml" />
                             <p:menuitem value="Logout" url="./logout.xhtml" />
                         </p:submenu>
                     </p:menu>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <p:growl id="msgs" showDetail="true" />
+                    <p:growl id="growl" showDetail="true" sticky="true" /> 
                     <ui:insert name="body" />   
                 </p:layoutUnit>
             </p:layout>

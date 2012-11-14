@@ -49,7 +49,7 @@ public class MakeAppointmentControl implements Serializable{
     private AdminBean adminBean;
     @EJB
     private edu.fullerton.AcademyAdvisorAppointment.ejb.SlotFacade slotFacade;
-    @ManagedProperty(value="#{StudentControl}")
+    @ManagedProperty(value="#{studentControl}")
     private StudentControl studentControl;
     private ScheduleModel model;
     private Advisor advisor;
@@ -58,11 +58,12 @@ public class MakeAppointmentControl implements Serializable{
     public MakeAppointmentControl() {
     }
 
-    @PostConstruct
+    
     void updateModel(){
          updateModelBasedOnAdvisor();
     }
     public ScheduleModel getModel(){
+        updateModel();
         return model;
     }
 
@@ -197,6 +198,19 @@ public class MakeAppointmentControl implements Serializable{
 
     public void setSelectedSlot(Slot selectedSlot) {
         this.selectedSlot = selectedSlot;
+    }
+    
+    public String cancelAppointment(){
+        try{
+            selectedSlot.setStatus(Status.AVAILABLE);
+            selectedSlot.setStudent(null);         
+            slotFacade.edit(selectedSlot);
+        }
+        catch(Exception e){
+            return "InternalError";
+        }
+            
+        return null;
     }
     
 }
