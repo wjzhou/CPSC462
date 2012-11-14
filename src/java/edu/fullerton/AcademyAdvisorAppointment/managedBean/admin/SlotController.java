@@ -158,6 +158,10 @@ public class SlotController implements Serializable {
         }
         return items;
     }
+    
+    public DataModel getBookedItems(){
+        return new ListDataModel(getFacade().findByStatus(Slot.Status.BOOKED));
+    }
 
     private void recreateModel() {
         items = null;

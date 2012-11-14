@@ -5,12 +5,14 @@
 package edu.fullerton.AcademyAdvisorAppointment.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -21,8 +23,16 @@ import javax.persistence.NamedQuery;
         @NamedQuery(name = "Reason.findAll", query = "SELECT r FROM Reason r")})
 public class Reason implements Serializable {
     private static final long serialVersionUID = 1L;
+    @TableGenerator(
+        name = "ReasonIdGen",
+        table = "SEQUENCE_GENERATOR",
+        pkColumnName = "GEN_KEY",
+        valueColumnName = "GEN_VALUE",
+        pkColumnValue = "Reason_ID",
+        allocationSize = 10)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ReasonIdGen")
+    @Column(name = "R_ID")
     private Long id;
     private String reason;
     private boolean backtoback;

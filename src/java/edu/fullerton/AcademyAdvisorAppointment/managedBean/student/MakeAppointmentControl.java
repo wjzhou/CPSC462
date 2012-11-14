@@ -177,7 +177,13 @@ public class MakeAppointmentControl implements Serializable{
         this.model=new MyScheduleModel(allSlots);
     }
     public String confirmAppointment(){
+        if (slotFacade.haveAppointMent(studentControl.getStudent())){           
+        //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "test of add message","detail");         
+        //addMessage(message);  
+        return "oneAppointment";
+        }
         try{
+            
             event.getData().setStatus(Status.BOOKED);
             event.getData().setStudent(studentControl.getStudent());         
             slotFacade.edit(event.getData());

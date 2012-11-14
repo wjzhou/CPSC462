@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Slot.findByAdvisor", query = "SELECT s FROM Slot s WHERE s.advisor=:advisor"),
     @NamedQuery(name = "Slot.findByid", query = "SELECT s FROM Slot s WHERE s.id = :id"),
     @NamedQuery(name = "Slot.findByStudent", query = "SELECT s FROM Slot s WHERE s.student=:student"),
-    
+     
     //@NamedQuery(name = "Slot.findByStarttime", query = "SELECT s FROM Slot s WHERE s.starttime = :starttime"),
     //@NamedQuery(name = "Slot.findByEndtime", query = "SELECT s FROM Slot s WHERE s.endtime = :endtime"),
     @NamedQuery(name = "Slot.findByStatus", query = "SELECT s FROM Slot s WHERE s.status = :status")})
