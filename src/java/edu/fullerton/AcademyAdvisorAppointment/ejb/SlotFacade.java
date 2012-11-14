@@ -59,4 +59,16 @@ public class SlotFacade extends AbstractFacade<Slot> {
         createNamedQuery.setParameter("student", student);
         return createNamedQuery.getResultList();
     }
+    public List<Slot> findByStatus(Slot.Status status) {
+        Query createNamedQuery = em.createNamedQuery("Slot.findByStatus");
+        createNamedQuery.setParameter("status", status);
+        return createNamedQuery.getResultList();
+    }
+
+    public boolean haveAppointMent(Student student) {
+        Query createNamedQuery = em.createNamedQuery("Slot.findByStudent");
+        createNamedQuery.setParameter("student", student);
+        return createNamedQuery.getResultList().isEmpty();
+    }
+    
 }
