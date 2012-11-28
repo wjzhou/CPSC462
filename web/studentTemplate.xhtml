@@ -13,21 +13,22 @@
                 <title>Academy Advisor Appointment System</title>
                 <h:outputStylesheet name="css/jsfcrud.css"/>
                 <h:outputStylesheet name="css/event.css"/>
+                <h:outputStylesheet name="css/default.css"/>
             </f:facet>
         </h:head>
        
         <h:body>
             <p:layout fullPage="true">
 
-               <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Welcome to Academy Advisor Appointment System
+               <p:layoutUnit position="north" size="115" resizable="false" closable="false" collapsible="true">
+                   <div align="center"><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner"/></div>
                 </p:layoutUnit>
 
                  <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
                     Footer
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">                  
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Make Appoinement" url="/faces/makeAppointment.xhtml"/>
