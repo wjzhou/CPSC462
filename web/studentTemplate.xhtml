@@ -19,15 +19,29 @@
         <h:body>
             <p:layout fullPage="true">
 
-               <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Welcome to Academy Advisor Appointment System
+               <p:layoutUnit position="north" size="175" resizable="false" closable="false" collapsible="false">
+                        <table  border="0" cellspacing="0" align="center">
+      <tr><td style="width: 802px"><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner" /></td></tr>    
+    </table>
+    <table width="800px" border="0" height="36px" style="background-image:url(http://cs.fullerton.edu/images/navbarbg.jpg)" align="center">
+      <tr>
+
+        <td align="right"> |
+            <a href="index.aspx">Home</a> |
+            <a href="contactUs.aspx">Contact</a> |
+            <a href="http://www.fullerton.edu/ecs" target="_blank">ECS Home</a> |
+            <a href="http://www.fullerton.edu" target="_blank">CSUF Home</a> |
+            <a href="http://www.csumentor.com" target="_blank">Admissions</a></td>
+      </tr>
+    </table>
+
                 </p:layoutUnit>
 
                  <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
                     Footer
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="175" header="Navigation" collapsible="true">
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Make Appoinement" url="/faces/makeAppointment.xhtml"/>

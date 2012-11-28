@@ -47,8 +47,8 @@ public class ConfigBean {
         student.setPassword("123456");
         adminBean.createStudent(student);
         
-        Reason reason1=new Reason("Build Study Plane", true);
-        Reason reason2=new Reason("Change Plane", false);
+        Reason reason1=new Reason("Build Study Plan", true);
+        Reason reason2=new Reason("Change Study Plan", false);
         reasonFacade.create(reason1);
         reasonFacade.create(reason2);
         
