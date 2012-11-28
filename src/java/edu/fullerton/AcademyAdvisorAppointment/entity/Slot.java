@@ -85,6 +85,7 @@ public class Slot implements Serializable {
     @XmlTransient
     private Reason reason;
     @Version int version;
+    String location;
 
     public Slot() {
     }
@@ -101,11 +102,12 @@ public class Slot implements Serializable {
         this.status = status;
     }
     
-    public Slot(Date starttime, Date endtime, Status status, Advisor advisor) {
+    public Slot(Date starttime, Date endtime, Status status, Advisor advisor, String location) {
         this.starttime = starttime;
         this.endtime = endtime;
         this.status = status;
         this.advisor=advisor;
+        this.location=location;
     }
 
     public Integer getId() {
@@ -171,6 +173,15 @@ public class Slot implements Serializable {
     public void setReason(Reason reason) {
         this.reason = reason;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    
 
     @Override
     public int hashCode() {

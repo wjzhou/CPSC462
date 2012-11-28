@@ -44,7 +44,7 @@
                             </p:panel>  
                         </p:layoutUnit> 
                         <p:layoutUnit position="center">                         
-                            <p:schedule id="schedule" value="#{makeAppointmentControl.model}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false">
+                            <p:schedule id="schedule" value="#{makeAppointmentControl.model}" widgetVar="availableSlotSchedule" minTime="8" maxTime="20" slotMinutes="15" allDaySlot="false" showHeader="false" rightHeaderTemplate="agendaWeek" view="basicWeek">
                                 <p:ajax event="eventSelect" listener="#{makeAppointmentControl.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()"/>
                             </p:schedule>
                         </p:layoutUnit>

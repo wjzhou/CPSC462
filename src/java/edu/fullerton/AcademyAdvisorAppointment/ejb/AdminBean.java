@@ -69,7 +69,7 @@ public class AdminBean implements Serializable{
     }
 
     public void addAvailableSlot(Date time1, Date time2, Advisor advisor) {
-        Slot slot=new Slot(time1, time2, Slot.Status.AVAILABLE, advisor);
+        Slot slot=new Slot(time1, time2, Slot.Status.AVAILABLE, advisor,"cs110");
        // slot.setAdvisor(advisor);
         em.persist(slot);
     }
