@@ -1,6 +1,6 @@
 body {
     background-color: #ffffff;
-    font-size: 12px;
+    font-size: 16px;
     font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     color: #000000;  
     margin: 10px;
@@ -9,7 +9,7 @@ body {
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     border-bottom: 1px solid #AFAFAF; 
-    font-size:  16px;
+    font-size:  20px;
     font-weight: bold;
     margin: 0px;
     padding: 0px;
@@ -28,3 +28,11 @@ a:link:hover, a:visited:hover  {
   text-decoration : underline;
 }
 
+
+.fc-event-inner, .fc-event-skin {
+    height:50px;
+    font-size:18px;  
+}
+.ui-widget-content{
+    background-color: #c3c9b8;
+}

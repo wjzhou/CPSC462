@@ -47,10 +47,10 @@ public class AdminScheduleEvent implements ScheduleEvent, Serializable{
     public String getTitle() {
         //if (slot.getStatus()==Slot.Status.)
         Student s=slot.getStudent();
-        if(s==null) {
-            return slot.getStatus().toString();
-        }
-        return s.getName();
+        /*if(s==null) {*/
+            return '\n'+slot.getStatus().toString();
+        /*}
+        return "<br/>"+s.getName();*/
     }
 
     @Override
