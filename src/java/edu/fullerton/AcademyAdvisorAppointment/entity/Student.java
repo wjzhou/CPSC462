@@ -102,7 +102,7 @@ public class Student extends Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Students cwId=" + cwid + " ]";
+        return cwid+" "+getName();
     }
 
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSlotTemplateTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_id}"/>
+                    <h:outputText value="#{slotTemplateController.selected.id}" title="#{bundle.ViewSlotTemplateTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_advisor}"/>
+                    <h:outputText value="#{slotTemplateController.selected.advisor}" title="#{bundle.ViewSlotTemplateTitle_advisor}"/>
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_templateStartTime}"/>
+                    <h:outputText value="#{slotTemplateController.selected.templateStartTime}" title="#{bundle.ViewSlotTemplateTitle_templateStartTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_templateEndTime}"/>
+                    <h:outputText value="#{slotTemplateController.selected.templateEndTime}" title="#{bundle.ViewSlotTemplateTitle_templateEndTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_slotLength}"/>
+                    <h:outputText value="#{slotTemplateController.selected.slotLength}" title="#{bundle.ViewSlotTemplateTitle_slotLength}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewSlotTemplateLabel_location}"/>
+                    <h:outputText value="#{slotTemplateController.selected.location}" title="#{bundle.ViewSlotTemplateTitle_location}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{slotTemplateController.destroyAndView}" value="#{bundle.ViewSlotTemplateDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSlotTemplateEditLink}"/>
+                <br />
+                <h:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ViewSlotTemplateCreateLink}" />
+                <br />
+                <h:commandLink action="#{slotTemplateController.prepareList}" value="#{bundle.ViewSlotTemplateShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSlotTemplateIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

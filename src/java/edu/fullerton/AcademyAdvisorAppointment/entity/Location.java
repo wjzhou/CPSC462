@@ -56,7 +56,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fullerton.AcademyAdvisorAppointment.entity.Location[ =" + location + " ]";
+        return location;
     }
     
 }

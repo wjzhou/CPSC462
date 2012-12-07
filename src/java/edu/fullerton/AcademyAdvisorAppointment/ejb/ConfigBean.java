@@ -7,6 +7,7 @@ package edu.fullerton.AcademyAdvisorAppointment.ejb;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.AdminBean;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Admin;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Advisor;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Location;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Reason;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Student;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Type;
@@ -26,6 +27,8 @@ import javax.inject.Inject;
 @Singleton
 @Startup
 public class ConfigBean {
+    @EJB
+    private LocationFacade locationFacade;
     @EJB
     private AdminBean adminBean;
     @EJB
@@ -52,7 +55,11 @@ public class ConfigBean {
         admin.setLastname("Boulanger");
         admin.setPassword("123456");
         admin.setEmail("wujun_zhou@csu.fullerton.edu");
-        adminFacade.create(admin);     
+        adminFacade.create(admin);
+        
+        Location location=new Location("CS 578");
+        locationFacade.create(location);
+        
         
         Student student=new Student("893900076", Type.GRADUATE, "Wujun", "Zhou", "zwj.echo@gmail.com", "714-515-9869");
         student.setPassword("123456");

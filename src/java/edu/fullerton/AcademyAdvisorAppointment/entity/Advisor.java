@@ -147,6 +147,6 @@ public class Advisor extends Person implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fullerton.AcademyAdvisorAppointment.Advisors[ aId=" + id + " ]";
+        return id+" "+getName();
     }
 }

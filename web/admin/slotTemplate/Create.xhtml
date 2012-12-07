@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSlotTemplateTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{slotTemplateController.selected.id}" title="#{bundle.CreateSlotTemplateTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_advisor}" for="advisor" />
+                    <h:selectOneMenu id="advisor" value="#{slotTemplateController.selected.advisor}" title="#{bundle.CreateSlotTemplateTitle_advisor}" >
+                        <f:selectItems value="#{advisorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateStartTime}" for="templateStartTime" />
+                    <h:inputText id="templateStartTime" value="#{slotTemplateController.selected.templateStartTime}" title="#{bundle.CreateSlotTemplateTitle_templateStartTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateStartTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateEndTime}" for="templateEndTime" />
+                    <h:inputText id="templateEndTime" value="#{slotTemplateController.selected.templateEndTime}" title="#{bundle.CreateSlotTemplateTitle_templateEndTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateEndTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_slotLength}" for="slotLength" />
+                    <h:inputText id="slotLength" value="#{slotTemplateController.selected.slotLength}" title="#{bundle.CreateSlotTemplateTitle_slotLength}" >
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_location}" for="location" />
+                    <h:selectOneMenu id="location" value="#{slotTemplateController.selected.location}" title="#{bundle.CreateSlotTemplateTitle_location}" >
+                        <f:selectItems value="#{locationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{slotTemplateController.create}" value="#{bundle.CreateSlotTemplateSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{slotTemplateController.prepareList}" value="#{bundle.CreateSlotTemplateShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSlotTemplateIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
