@@ -18,17 +18,44 @@
         </h:head>
        
         <h:body>
-            <p:layout fullPage="true">
+            <p:layout  fullPage="true">
 
-               <p:layoutUnit position="north" size="115" resizable="false" closable="false" collapsible="true">
-                   <div align="center"><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner"/></div>
+                <p:layoutUnit position="north" style="border:none" size="150" resizable="false" closable="false" collapsible="true" >
+                  <div align="center"><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner"/></div>
+                   <table width="800px" border="0" height="30px" style="background-image:url(http://cs.fullerton.edu/images/navbarbg.jpg)" align="center">
+      <tbody><tr>
+
+        <td align="right" class="nav"> |
+            <a href="http://cs.fullerton.edu/index.aspx">Home</a> |
+            <a href="http://cs.fullerton.edu/contactUs.aspx">Contact</a> |
+            <a href="http://www.fullerton.edu/ecs" target="_blank">ECS Home</a> |
+            <a href="http://www.fullerton.edu" target="_blank">CSUF Home</a> |
+            <a href="http://www.csumentor.com" target="_blank">Admissions</a></td>
+      </tr>
+    </tbody></table>
                 </p:layoutUnit>
 
-                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
+                 <p:layoutUnit position="south" size="90" closable="true" collapsible="true">
+                   
+<table width="900px" align="center" cellspacing="0" cellpadding="0" style="border: 0px; background-color:#a8ad99">
+    <tbody><tr>
+        <td>
+            <table cellspacing="0" cellpadding="5" style="border: none; text-align: justify">
+                <tbody><tr><td ><div style="float:left; padding-right: 8px;"><img src="http://cs.fullerton.edu/images/CSUF_Logo.gif" /></div>
+		    This site is maintained by Department of Computer Science, California State University, Fullerton. Report any problem related to this website to: <a href="mailto:ecswebmaster@fullerton.edu">webmaster@ecs.fullerton.edu</a></td>
+		</tr>
+		<tr><td>
+                This site may contain links to Web sites not administered by the Department of Computer Science, California State University, Fullerton. 
+                The Department of Computer Science, California State University, Fullerton, is not responsible or liable for the accuracy or the content of linked pages.
+		    </td>
+		</tr>
+   </tbody></table>
+</td>
+    </tr>
+  </tbody></table>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">                  
+                <p:layoutUnit position="west" size="200" header="Options" collapsible="true">                  
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Make Appoinement" url="/faces/makeAppointment.xhtml"/>
