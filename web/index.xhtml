@@ -7,12 +7,13 @@
     <body>
         <ui:composition template="./studentTemplate.xhtml">
             <ui:define name="body">
-                <h:form>    <div style="background-color: #c3c9b8;height: 400px;margin: 0;">              
-                        <span style="font-size: medium; padding-left: 20px;">Welcome to the</span> <h1 align="center">Academy Advisor Appointment System</h1><br/> 
-                        <span style="font-size: medium; padding-left: 20px;">You can make an appointment with an advisor online now or call CS Department Office at (657) 278-3700.</span><br/>
-                        <h3>What do you want to do?</h3>
-                        <ul><li><h:link value="Make An Appointment" outcome="makeAppointment"/></li> <br/>
-                            <li><h:link value="View/Cancel appointment" outcome="editAppointment"/></li></ul></div>
+                <h:form>  <!--  <div style="background-color: #c3c9b8;height: 400px;margin: 0;">   -->
+                    <h1 align="center">Academy Advisor Appointment System</h1><br/>
+                    <span style=" padding-left: 20px;">Welcome to the CSUF Computer Science department's online academic advising appointment system!</span> <br/> 
+                    <span style="padding-left: 20px;">You can make an appointment with an advisor online now or call CS Department Office at (657) 278-3700.</span><br/>
+                    <h3>What do you want to do?</h3>
+                    <ul><li><h:link value="Make An Appointment" outcome="makeAppointment"/></li> <br/>
+                    <li><h:link value="View/Cancel appointment" outcome="editAppointment"/></li></ul>
                 </h:form>
             </ui:define>
         </ui:composition>

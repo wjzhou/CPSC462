@@ -50,33 +50,33 @@
                         </p:layoutUnit>
                        
                     </p:layout> 
-                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-                        <h:panelGrid id="eventDetails" columns="2">
+                    <p:dialog widgetVar="eventDialog" header="Appointment Details" showEffect="clip" hideEffect="clip" style="background-color: #ABB291">
+                        <h:panelGrid id="eventDetails" columns="2" >
                             <ui:remove>
                             <h:outputLabel for="status" value="Status:" />
                             <p:selectOneMenu id="status" value="#{makeAppointmentControl.status}" converter="#{makeAppointmentControl.statusConverter}" >
                                 <f:selectItems value="#{makeAppointmentControl.statusList}"/> 
                             </p:selectOneMenu>
                             </ui:remove>
-                            <h:outputLabel for="from" value="From:" />
-                            <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" >
+                            <h:outputLabel for="from" value="From:" style="font-size: 20px"/>
+                            <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" style="font-size: 20px; color: #045491;">
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                             </h:outputText>
                                 
-                            <h:outputLabel for="to" value="To:" />
-                            <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" >
+                            <h:outputLabel for="to" value="To:" style="font-size: 20px"/>
+                            <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" style="font-size: 20px; color: #045491;">
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                             </h:outputText>
                                 
-                            <h:outputLabel for="advisor" value="Advisor:" />
-                            <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}"/>
+                            <h:outputLabel for="advisor" value="Advisor:" style="font-size: 20px"/>
+                            <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" style="font-size: 20px;color: #045491;"/>
                             
                             <ui:remove>
-                            <h:outputLabel for="student" value="Student:" />
-                            <h:outputText id="student" value="#{makeAppointmentControl.event.studentName}"/>
+                            <h:outputLabel for="student" value="Student:" style="font-size: 20px"/>
+                            <h:outputText id="student" value="#{makeAppointmentControl.event.studentName}" style="font-size: 20px; color: #045491;"/>
                             </ui:remove>    
-                            <p:commandButton value="Reset" actionListener="#{makeAppointmentControl.unselect}" oncomplete="eventDialog.hide();"/>
-                            <p:commandButton value="Select" actionListener="#{makeAppointmentControl.select}" oncomplete="makeAppointmentControl.update();eventDialog.hide();"/>
+                            <p:commandButton value="Reset" actionListener="#{makeAppointmentControl.unselect}" oncomplete="eventDialog.hide();" style="font-size: 16px"/>
+                            <p:commandButton value="Select" actionListener="#{makeAppointmentControl.select}" oncomplete="makeAppointmentControl.update();eventDialog.hide();" style="font-size: 16px"/>
                         </h:panelGrid>
                     </p:dialog>                        
                 </h:form>
