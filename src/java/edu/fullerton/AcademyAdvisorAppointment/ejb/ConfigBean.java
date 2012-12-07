@@ -17,6 +17,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 
 /**
  *
@@ -29,19 +30,29 @@ public class ConfigBean {
     private AdminBean adminBean;
     @EJB
     private ReasonFacade reasonFacade;
-
+    @EJB
+    private AdminFacade adminFacade;
     @PostConstruct
     public void createData() {
-        Advisor advisor=new Advisor("Shawn", "WANG", "CS 522C");
+        Advisor advisor=new Advisor("Shawn", "Wang", "CS 522C");
         advisor.addAdvisingTypes(Type.GRADUATE);
+        
         Advisor advisor1=new Advisor("Test", "MAN", "CS 522C");
         advisor1.addAdvisingTypes(Type.GRADUATE);
         advisor1.addAdvisingTypes(Type.UNDER_GRADUATE);
+        
         adminBean.createAdvisor(advisor);
         adminBean.createAdvisor(advisor1);
-        Advisor advisor2=new Advisor("Really", "Long Name Test", "CS 522C");
+        Advisor advisor2=new Advisor("Long", "Name Test", "CS 522C");
         advisor2.addAdvisingTypes(Type.UNDER_GRADUATE);
         adminBean.createAdvisor(advisor2);
+        
+        Admin admin=new Admin();
+        admin.setFirstname("Sandra");
+        admin.setLastname("Boulanger");
+        admin.setPassword("123456");
+        admin.setEmail("wujun_zhou@csu.fullerton.edu");
+        adminFacade.create(admin);     
         
         Student student=new Student("893900076", Type.GRADUATE, "Wujun", "Zhou", "zwj.echo@gmail.com", "714-515-9869");
         student.setPassword("123456");

@@ -6,6 +6,7 @@ import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.Pagination
 import edu.fullerton.AcademyAdvisorAppointment.ejb.AdvisorFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -225,5 +226,5 @@ public class AdvisorController implements Serializable {
         }
 
     }
-
+    
 }

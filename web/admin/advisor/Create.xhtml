@@ -15,24 +15,21 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_preferredLocation}" for="preferredLocation" />
-                    <h:inputText id="preferredLocation" value="#{advisorController.selected.preferredLocation}" title="#{bundle.CreateAdvisorTitle_preferredLocation}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_advisingTypes}" for="advisingTypes" />
-                    <h:inputText id="advisingTypes" value="#{advisorController.selected.advisingTypes}" title="#{bundle.CreateAdvisorTitle_advisingTypes}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{advisorController.selected.id}" title="#{bundle.CreateAdvisorTitle_id}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_firstname}" for="firstname" />
-                    <h:inputText id="firstname" value="#{advisorController.selected.firstname}" title="#{bundle.CreateAdvisorTitle_firstname}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_lastname}" for="lastname" />
-                    <h:inputText id="lastname" value="#{advisorController.selected.lastname}" title="#{bundle.CreateAdvisorTitle_lastname}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{advisorController.selected.email}" title="#{bundle.CreateAdvisorTitle_email}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{advisorController.selected.password}" title="#{bundle.CreateAdvisorTitle_password}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="#{advisorController.selected.phone}" title="#{bundle.CreateAdvisorTitle_phone}" />
-                    <h:outputLabel value="#{bundle.CreateAdvisorLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{advisorController.selected.name}" title="#{bundle.CreateAdvisorTitle_name}" />
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_firstname}" for="firstname" />
+                    <h:inputText id="firstname" value="#{advisorController.selected.firstname}" title="#{bundle.EditAdvisorTitle_firstname}" />
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_lastname}" for="lastname" />
+                    <h:inputText id="lastname" value="#{advisorController.selected.lastname}" title="#{bundle.EditAdvisorTitle_lastname}" />
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_advisingTypes}" for="advisingTypes" />
+                    <h:selectManyCheckbox value="#{advisorController.selected.advisingTypesOptions}">  
+                      <f:selectItem itemLabel="Undergraduate Advisor" itemValue="U" />  
+                      <f:selectItem itemLabel="Graduate Advisor" itemValue="G" />   
+                    </h:selectManyCheckbox>
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{advisorController.selected.email}" title="#{bundle.EditAdvisorTitle_email}" />
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_phone}" for="phone" />
+                    <h:inputText id="phone" value="#{advisorController.selected.phone}" title="#{bundle.EditAdvisorTitle_phone}" />                   
+                    <h:outputLabel value="#{bundle.EditAdvisorLabel_preferredLocation}" for="preferredLocation" />
+                    <h:inputText id="preferredLocation" value="#{advisorController.selected.preferredLocation}" title="#{bundle.EditAdvisorTitle_preferredLocation}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{advisorController.create}" value="#{bundle.CreateAdvisorSaveLink}" />
@@ -41,7 +38,7 @@
                 <h:commandLink action="#{advisorController.prepareList}" value="#{bundle.CreateAdvisorShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateAdvisorIndexLink}"/>
+                <h:link outcome="/faces/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

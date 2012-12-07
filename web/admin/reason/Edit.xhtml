@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditReasonLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{reasonController.selected.id}" title="#{bundle.EditReasonTitle_id}" />
                     <h:outputLabel value="#{bundle.EditReasonLabel_reason}" for="reason" />
                     <h:inputText id="reason" value="#{reasonController.selected.reason}" title="#{bundle.EditReasonTitle_reason}" />
                 </h:panelGrid>
@@ -28,7 +26,7 @@
                 <h:commandLink action="#{reasonController.prepareList}" value="#{bundle.EditReasonShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.EditReasonIndexLink}" />
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -4,6 +4,7 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Admin;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.PaginationHelper;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.AdminFacade;
+import edu.fullerton.AcademyAdvisorAppointment.managedBean.ApplecationManagedBean;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 @ManagedBean(name = "adminController")
 @SessionScoped
@@ -24,6 +26,8 @@ public class AdminController implements Serializable {
 
     private Admin current;
     private DataModel items = null;
+    @Inject
+    ApplecationManagedBean applecationManagedBean;
     @EJB
     private edu.fullerton.AcademyAdvisorAppointment.ejb.AdminFacade ejbFacade;
     private PaginationHelper pagination;
@@ -128,10 +132,17 @@ public class AdminController implements Serializable {
         }
     }
 
+    @Inject
+    ApplecationManagedBean bean;
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AdminDeleted"));
+            if (bean.getCurrentAdmin().equals(current)) {
+                JsfUtil.addErrorMessage("Admin: "+current.getName()+" have be assigned as active "
+                        + "Admin. Please reasign active admin before deleting.");
+            }else{
+                getFacade().remove(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AdminDeleted"));
+            }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -221,6 +232,19 @@ public class AdminController implements Serializable {
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Admin.class.getName());
             }
-        }
+        }     
     }
+    
+   public String getActiveAdmin() {
+        return applecationManagedBean.getCurrentAdmin().getName();
+    }
+    
+    public String setActiveAdmin() {
+        current = (Admin) getItems().getRowData();
+        if(current!=null) {
+            applecationManagedBean.setCurrentAdmin(current);
+        }
+        return "List";
+    }
+    
 }

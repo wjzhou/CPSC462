@@ -4,11 +4,14 @@
  */
 package edu.fullerton.AcademyAdvisorAppointment.managedBean;
 
+import edu.fullerton.AcademyAdvisorAppointment.entity.Admin;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Advisor;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Reason;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -58,6 +61,8 @@ public class ApplecationManagedBean {
     }
     public void preRenderView() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        
+        
         //tune session params, eg. session.setMaxInactiveInterval(..);
         //perform other pre-render stuff, like setting user context...
     }
@@ -115,4 +120,17 @@ public class ApplecationManagedBean {
         
     }
     
+    Admin currentAdmin=null;
+    public Admin getCurrentAdmin(){
+        if (currentAdmin==null){
+            Query createNamedQuery = em.createNamedQuery("Admin.findAll");
+            List<Admin> adminList=createNamedQuery.getResultList();
+            this.currentAdmin=adminList.get(0);
+        }
+        return currentAdmin;
+    }
+
+    public void setCurrentAdmin(Admin currentAdmin) {
+        this.currentAdmin = currentAdmin;
+    }
 }

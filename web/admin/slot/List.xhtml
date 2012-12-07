@@ -31,7 +31,7 @@
                                 <h:outputText value="#{bundle.ListSlotTitle_starttime}"/>
                             </f:facet>
                             <h:outputText value="#{item.starttime}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="MM/dd HH:mm" />
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -39,7 +39,7 @@
                                 <h:outputText value="#{bundle.ListSlotTitle_endtime}"/>
                             </f:facet>
                             <h:outputText value="#{item.endtime}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="MM/dd HH:mm" />
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -58,7 +58,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSlotTitle_description}"/>
                             </f:facet>
-                            <h:outputText value="#{item.description}"/>
+                            <h:outputText value="#{item.reason}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -82,7 +82,7 @@
                 <h:commandLink action="#{slotController.prepareCreate}" value="#{bundle.ListSlotCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListSlotIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.ListSlotIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

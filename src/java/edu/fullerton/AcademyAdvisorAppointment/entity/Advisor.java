@@ -7,6 +7,7 @@ package edu.fullerton.AcademyAdvisorAppointment.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -52,6 +53,7 @@ public class Advisor extends Person implements Serializable {
     private Collection<Slot> slots;
 
     public Advisor() {
+         this.advisingTypes = new ArrayList<Type>();
     }
 
     public Advisor(String firstname, String lastname, String preferredOffice) {
@@ -69,10 +71,45 @@ public class Advisor extends Person implements Serializable {
         this.preferredLocation = preferredLocation;
     }
 
-    public Collection<Type> getAdvisingTypes() {
+    public Collection<Type> getAdvisingTypes() {    
         return advisingTypes;
     }
+    
+    public String getAdvisingTypesTableString() {
+        String result=new String();
+        if (advisingTypes.contains(Type.UNDER_GRADUATE)) {
+            result+="U";
+        }
+        if (advisingTypes.contains(Type.GRADUATE)) {
+            result+="G";
+        }
+        return result;
+    }
 
+     public void setAdvisingTypesOptions(List<String> selectedTypes) {  
+        for(String s:selectedTypes){
+            if("U".equals(s)) {
+                this.advisingTypes.add(Type.UNDER_GRADUATE);
+            }
+            if("G".equals(s)) {
+                this.advisingTypes.add(Type.GRADUATE);
+            }
+        }
+    }
+     
+    public List<String> getAdvisingTypesOptions() {  
+        List<String> result=new ArrayList<String>(2);
+        if (advisingTypes.contains(Type.UNDER_GRADUATE)) {
+            result.add("U");
+        }
+        if (advisingTypes.contains(Type.GRADUATE)) {
+            result.add("G");
+        }
+        return result;
+    }
+     
+
+    
     public void setAdvisingTypes(Collection<Type> advisingTypes) {
         this.advisingTypes = advisingTypes;
     }

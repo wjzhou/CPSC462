@@ -23,12 +23,6 @@
                     <h:outputText value="#{adminController.selected.lastname}" title="#{bundle.ViewAdminTitle_lastname}"/>
                     <h:outputText value="#{bundle.ViewAdminLabel_email}"/>
                     <h:outputText value="#{adminController.selected.email}" title="#{bundle.ViewAdminTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewAdminLabel_password}"/>
-                    <h:outputText value="#{adminController.selected.password}" title="#{bundle.ViewAdminTitle_password}"/>
-                    <h:outputText value="#{bundle.ViewAdminLabel_phone}"/>
-                    <h:outputText value="#{adminController.selected.phone}" title="#{bundle.ViewAdminTitle_phone}"/>
-                    <h:outputText value="#{bundle.ViewAdminLabel_name}"/>
-                    <h:outputText value="#{adminController.selected.name}" title="#{bundle.ViewAdminTitle_name}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{adminController.destroyAndView}" value="#{bundle.ViewAdminDestroyLink}"/>
@@ -41,7 +35,7 @@
                 <h:commandLink action="#{adminController.prepareList}" value="#{bundle.ViewAdminShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewAdminIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
 
             </h:form>
         </ui:define>

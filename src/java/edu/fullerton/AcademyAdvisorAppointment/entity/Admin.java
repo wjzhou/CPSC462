@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -17,6 +19,9 @@ import javax.persistence.Id;
  */
 @Entity
 @DiscriminatorValue("Admin")
+@NamedQueries({
+    @NamedQuery(name = "Admin.findAll", query = "SELECT a FROM Admin a")
+})
 public class Admin extends Person implements Serializable {
 
     @Override

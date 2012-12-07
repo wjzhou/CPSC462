@@ -1,21 +1,83 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title><ui:insert name="title">Default Title</ui:insert></title>
-<h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
+      xmlns:p="http://primefaces.org/ui">
 
-    <h:body>
-        <h1>
-            <ui:insert name="title">Default Title</ui:insert>
-        </h1>
-        <p>
-            <ui:insert name="body">Default Body</ui:insert>
-        </p>
-    </h:body>
+    <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{applecationManagedBean.preRenderView}"/>
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Academy Advisor Appointment System</title>
+                <h:outputStylesheet name="css/jsfcrud.css"/>
+                <h:outputStylesheet name="css/event.css"/>
+            </f:facet>
+            <style type="text/css">
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;;
+                }
 
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+            </style>
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">
+
+                <p:layoutUnit id="top" position="north" size="50">
+                    <p:menubar autoSubmenuDisplay="true">
+                        <p:submenu label="Appoitment Manage">
+                                <p:menuitem value="Show Appointments" url="/faces/admin/slot/List.xhtml" />
+                        </p:submenu>
+        
+                       <p:submenu label="Student Manage">
+                           <p:menuitem value="Show Students" url="/faces/admin/student/List.xhtml" />
+                        </p:submenu>
+        
+                        <p:submenu label="Advisor/Admin Manage">
+                           <p:menuitem value="Show Advisors" url="/faces/admin/advisor/List.xhtml" />
+                           <p:menuitem value="Show Admins" url="/faces/admin/admin/List.xhtml" />
+                        </p:submenu>
+        
+                        <p:submenu label="Other">
+                            <p:menuitem value="Show Locations" url="/faces/admin/location/List.xhtml" />
+                            <p:menuitem value="Show Reasons" url="/faces/admin/reason/List.xhtml" />                        
+                        </p:submenu> 
+
+                    </p:menubar>
+                </p:layoutUnit>
+
+                  <p:layoutUnit id="left" position="west" size="300" resizable="true" closable="true" collapsible="true" header="Options" minSize="200">
+                    <p:accordionPanel>
+                        <p:tab title="Menu 1">
+                            <br />
+                            <p:calendar mode="inline" navigator="none"/>
+                            <br />
+                        </p:tab>
+
+                        <p:tab title="Menu 2">
+                            <h:outputText value="Menu 2 Content" />
+                        </p:tab>
+
+                        <p:tab title="Menu 3">
+                            <h:outputText value="Menu 3 Content" />
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="body" />   
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
 </html>
+
+

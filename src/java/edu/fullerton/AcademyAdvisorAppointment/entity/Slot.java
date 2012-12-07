@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author wujun
  */
 @Entity
-@Table(name = "SLOTS", catalog = "", schema = "APP")
+@Table(name = "SLOTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Slot.findAll", query = "SELECT s FROM Slot s ORDER BY s.id"),
@@ -70,6 +70,10 @@ public class Slot implements Serializable {
     @NotNull
     @Column(name = "STATUS")
     private Status status;
+    
+    @Column(name = "LOCATION")
+    private String location;
+    
     @ManyToOne
     @JoinColumn(name = "STUDENT_ID") 
     @XmlTransient
@@ -170,6 +174,14 @@ public class Slot implements Serializable {
 
     public void setReason(Reason reason) {
         this.reason = reason;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override

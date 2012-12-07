@@ -43,6 +43,9 @@
                             <h:outputLabel for="advisor" value="Advisor:" />
                             <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" />
                             
+                            <h:outputLabel for="location" value="Location:" />
+                            <h:outputText id="location" value="#{makeAppointmentControl.event.location}" />
+                            
                             <p:commandButton type="Cancel" value="Reset" />
                             <p:commandButton value="Confirm" action="#{makeAppointmentControl.confirmAppointment}" ajax="false"/>
                             <!--<p:commandButton value="Save" action="#{availableSlotBean.addEvent}" />-->

@@ -22,6 +22,12 @@
                     <h:dataTable value="#{studentController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListStudentTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListStudentTitle_cwid}"/>
                             </f:facet>
                             <h:outputText value="#{item.cwid}"/>
@@ -31,12 +37,6 @@
                                 <h:outputText value="#{bundle.ListStudentTitle_type}"/>
                             </f:facet>
                             <h:outputText value="#{item.type}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStudentTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -58,21 +58,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStudentTitle_password}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.password}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListStudentTitle_phone}"/>
                             </f:facet>
                             <h:outputText value="#{item.phone}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListStudentTitle_name}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -90,7 +78,7 @@
                 <h:commandLink action="#{studentController.prepareCreate}" value="#{bundle.ListStudentCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListStudentIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.ListStudentIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

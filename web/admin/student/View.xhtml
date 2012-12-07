@@ -15,20 +15,18 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStudentLabel_id}"/>
+                    <h:outputText value="#{studentController.selected.id}" title="#{bundle.ViewStudentTitle_id}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_cwid}"/>
                     <h:outputText value="#{studentController.selected.cwid}" title="#{bundle.ViewStudentTitle_cwid}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_type}"/>
-                    <h:outputText value="#{studentController.selected.type}" title="#{bundle.ViewStudentTitle_type}"/>
-                    <h:outputText value="#{bundle.ViewStudentLabel_id}"/>
-                    <h:outputText value="#{studentController.selected.id}" title="#{bundle.ViewStudentTitle_id}"/>
+                    <h:outputText value="#{studentController.selected.type}" title="#{bundle.ViewStudentTitle_type}"/>    
                     <h:outputText value="#{bundle.ViewStudentLabel_firstname}"/>
                     <h:outputText value="#{studentController.selected.firstname}" title="#{bundle.ViewStudentTitle_firstname}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_lastname}"/>
                     <h:outputText value="#{studentController.selected.lastname}" title="#{bundle.ViewStudentTitle_lastname}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_email}"/>
                     <h:outputText value="#{studentController.selected.email}" title="#{bundle.ViewStudentTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewStudentLabel_password}"/>
-                    <h:outputText value="#{studentController.selected.password}" title="#{bundle.ViewStudentTitle_password}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_phone}"/>
                     <h:outputText value="#{studentController.selected.phone}" title="#{bundle.ViewStudentTitle_phone}"/>
                     <h:outputText value="#{bundle.ViewStudentLabel_name}"/>
@@ -45,7 +43,7 @@
                 <h:commandLink action="#{studentController.prepareList}" value="#{bundle.ViewStudentShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewStudentIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.ViewStudentIndexLink}"/>
 
             </h:form>
         </ui:define>

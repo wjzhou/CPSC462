@@ -16,7 +16,7 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditAdminLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{adminController.selected.id}" title="#{bundle.EditAdminTitle_id}" />
+                    <h:outputText id="id" value="#{adminController.selected.id}" title="#{bundle.EditAdminTitle_id}" />
                     <h:outputLabel value="#{bundle.EditAdminLabel_firstname}" for="firstname" />
                     <h:inputText id="firstname" value="#{adminController.selected.firstname}" title="#{bundle.EditAdminTitle_firstname}" />
                     <h:outputLabel value="#{bundle.EditAdminLabel_lastname}" for="lastname" />
@@ -26,9 +26,6 @@
                     <h:outputLabel value="#{bundle.EditAdminLabel_password}" for="password" />
                     <h:inputText id="password" value="#{adminController.selected.password}" title="#{bundle.EditAdminTitle_password}" />
                     <h:outputLabel value="#{bundle.EditAdminLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="#{adminController.selected.phone}" title="#{bundle.EditAdminTitle_phone}" />
-                    <h:outputLabel value="#{bundle.EditAdminLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{adminController.selected.name}" title="#{bundle.EditAdminTitle_name}" />
                 </h:panelGrid>
                 <h:commandLink action="#{adminController.update}" value="#{bundle.EditAdminSaveLink}"/>
                 <br />
@@ -38,7 +35,7 @@
                 <h:commandLink action="#{adminController.prepareList}" value="#{bundle.EditAdminShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.EditAdminIndexLink}" />
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

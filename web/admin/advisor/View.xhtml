@@ -15,27 +15,24 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewAdvisorLabel_preferredLocation}"/>
-                    <h:outputText value="#{advisorController.selected.preferredLocation}" title="#{bundle.ViewAdvisorTitle_preferredLocation}"/>
-                    <h:outputText value="#{bundle.ViewAdvisorLabel_advisingTypes}"/>
-                    <h:outputText value="#{advisorController.selected.advisingTypes}" title="#{bundle.ViewAdvisorTitle_advisingTypes}"/>
                     <h:outputText value="#{bundle.ViewAdvisorLabel_id}"/>
                     <h:outputText value="#{advisorController.selected.id}" title="#{bundle.ViewAdvisorTitle_id}"/>
                     <h:outputText value="#{bundle.ViewAdvisorLabel_firstname}"/>
                     <h:outputText value="#{advisorController.selected.firstname}" title="#{bundle.ViewAdvisorTitle_firstname}"/>
                     <h:outputText value="#{bundle.ViewAdvisorLabel_lastname}"/>
                     <h:outputText value="#{advisorController.selected.lastname}" title="#{bundle.ViewAdvisorTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_advisingTypes}"/>
+                    <h:selectManyCheckbox value="#{advisorController.selected.advisingTypesOptions}" onclick="return false" readonly="true">  
+                      <f:selectItem itemLabel="Undergraduate Advisor" itemValue="U" />  
+                      <f:selectItem itemLabel="Graduate Advisor" itemValue="G" />   
+                    </h:selectManyCheckbox>  
                     <h:outputText value="#{bundle.ViewAdvisorLabel_email}"/>
                     <h:outputText value="#{advisorController.selected.email}" title="#{bundle.ViewAdvisorTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewAdvisorLabel_password}"/>
-                    <h:outputText value="#{advisorController.selected.password}" title="#{bundle.ViewAdvisorTitle_password}"/>
                     <h:outputText value="#{bundle.ViewAdvisorLabel_phone}"/>
-                    <h:outputText value="#{advisorController.selected.phone}" title="#{bundle.ViewAdvisorTitle_phone}"/>
-                    <h:outputText value="#{bundle.ViewAdvisorLabel_name}"/>
-                    <h:outputText value="#{advisorController.selected.name}" title="#{bundle.ViewAdvisorTitle_name}"/>
+                    <h:outputText value="#{advisorController.selected.phone}" title="#{bundle.ViewAdvisorTitle_phone}"/>               
+                    <h:outputText value="#{bundle.ViewAdvisorLabel_preferredLocation}"/>
+                    <h:outputText value="#{advisorController.selected.preferredLocation}" title="#{bundle.ViewAdvisorTitle_preferredLocation}"/>
                 </h:panelGrid>
-                <br />
-                <h:commandLink action="#{advisorController.destroyAndView}" value="#{bundle.ViewAdvisorDestroyLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewAdvisorEditLink}"/>
@@ -45,8 +42,7 @@
                 <h:commandLink action="#{advisorController.prepareList}" value="#{bundle.ViewAdvisorShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewAdvisorIndexLink}"/>
-
+                <h:link outcome="/faces/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
