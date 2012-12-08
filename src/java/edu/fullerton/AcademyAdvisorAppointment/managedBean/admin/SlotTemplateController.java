@@ -249,17 +249,22 @@ public class SlotTemplateController implements Serializable {
     
     
     public void createPreView(){
+        renderPreview=true;
         Calendar cInstance = Calendar.getInstance();
         List<Slot> slots=new ArrayList<Slot>();
         
         cInstance.setTime(endDay);
         cInstance.add(Calendar.DAY_OF_WEEK, 1);
-        Date endDayTime=cInstance.getTime();    
+        Date endDayTime=cInstance.getTime();
+        cInstance.add(Calendar.DAY_OF_WEEK, 6);
+        Date endDayWeekTime=cInstance.getTime();
         
-        cInstance.setTime(startDay);
-        int id = 0;
-        while (cInstance.getTime().before(endDayTime)) {
-            for (SlotTemplate slotTemplate : selectedSlotTemplates) {
+        
+        int id = 1;
+        for (SlotTemplate slotTemplate : selectedSlotTemplates) {
+             cInstance.setTime(startDay);
+             Date startDayTime=cInstance.getTime();
+            
                 int startHour = slotTemplate.getTemplateStartTime().getHours();
                 int startMinute = slotTemplate.getTemplateStartTime().getMinutes();
                 int endHour = slotTemplate.getTemplateEndTime().getHours();
@@ -267,24 +272,25 @@ public class SlotTemplateController implements Serializable {
                 int lengthHour = slotTemplate.getSlotLength().getHours();
                 int lengthMinute = slotTemplate.getSlotLength().getMinutes();
 
+             while (cInstance.getTime().before(endDayWeekTime)) {
                 for (Day day : slotTemplate.getDays()) {
                     cInstance.set(Calendar.DAY_OF_WEEK, day.getDayOfWeek());
-                    cInstance.set(Calendar.HOUR, endHour);
+                    cInstance.set(Calendar.HOUR_OF_DAY, endHour);
                     cInstance.set(Calendar.MINUTE, endMinute);
                     Date templateEndTime = cInstance.getTime();
 
-                    cInstance.set(Calendar.HOUR, startHour);
+                    cInstance.set(Calendar.HOUR_OF_DAY, startHour);
                     cInstance.set(Calendar.MINUTE, startMinute);
                     cInstance.set(Calendar.SECOND, 0);
                     cInstance.set(Calendar.MILLISECOND, 0);
 
                     Date time1 = cInstance.getTime();
                     
-                    if(time1.after(endDayTime)){
-                        break;
+                    if(time1.after(endDayTime)||time1.before(startDayTime)){
+                        continue;
                     }
 
-                    cInstance.add(Calendar.HOUR, lengthHour);
+                    cInstance.add(Calendar.HOUR_OF_DAY, lengthHour);
                     cInstance.add(Calendar.MINUTE, lengthMinute);
                     Date time2 = cInstance.getTime();
 
@@ -296,16 +302,20 @@ public class SlotTemplateController implements Serializable {
                         slot.setStatus(slotTemplate.getInitStatus());
                         slots.add(slot);
                         //slotFacade.create(slot);
-                        cInstance.add(Calendar.HOUR, lengthHour);
+                        cInstance.add(Calendar.HOUR_OF_DAY, lengthHour);
                         cInstance.add(Calendar.MINUTE, lengthMinute);
                         time1 = time2;
                         time2 = cInstance.getTime();
                     }
                 }/*for day inside slotTemplate*/
-            }/*for slotTemplate*/
-            cInstance.add(Calendar.DAY_OF_WEEK, 7);
-        }
+                cInstance.add(Calendar.DAY_OF_WEEK, 7);
+            }/*while indie time*/
+        }/*for slotTemplate*/
         previewSlots=new SlotDataModle(slots);
+        /*for (Slot slot : slots){
+            if findSlotInRange(slot)
+        }*/
+        selectedPreviewSlots=slots.toArray(new Slot[slots.size()]);
     }
     
     private DataModel previewSlots = null;
@@ -313,7 +323,7 @@ public class SlotTemplateController implements Serializable {
         return previewSlots;
     }
     boolean renderPreview = false;
-    public boolean renderPreview(){
+    public boolean getRenderPreview(){
         return renderPreview;
     }
     
@@ -323,5 +333,23 @@ public class SlotTemplateController implements Serializable {
     }  
     public void setSelectedPreviewSlots(Slot[] selectedPreviewSlots) {  
         this.selectedPreviewSlots = selectedPreviewSlots;  
+    }
+    
+    public String confirm(){
+        for (Slot slot : selectedPreviewSlots){
+            slot.setId(null);
+            slotFacade.create(slot);
+        }
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateSlotsCreateSuccess"));
+        previewSlots=null;
+        selectedPreviewSlots=null;
+        renderPreview=false;
+        startDay=null;
+        endDay=null;
+        return "List";      
+    }
+    Date currentDate=new Date();
+    public Date getCurrentDate(){
+        return currentDate;
     }
 }

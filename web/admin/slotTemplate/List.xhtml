@@ -86,23 +86,22 @@
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>
-            <br />
-            
-            <br />
             <p:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ListSlotTemplateCreateLink}"/>
+            <br />
+            <h:link outcome="/admin/index.xhtml" value="#{bundle.ListSlotTemplateIndexLink}" />
+            <br/>
+            <h:link outcome="/admin/slot/List.xhtml" value="#{bundle.ListSlotTemplateSlotListLink}" />
+            <br />
             <br />
             <p:panel>
             <h:outputText value="Start Day: "/>
-            <p:calendar value="#{slotTemplateController.startDay}"/>
+            <p:calendar value="#{slotTemplateController.startDay}" mindate="#{slotTemplateController.currentDate}"/>
             <h:outputText value="  End Day:"/>
-            <p:calendar value="#{slotTemplateController.endDay}"/>
-            <h:commandLink actionListener="#{slotTemplateController.createPreView()}" value="#{bundle.ListSlotTemplateCreateSlots}"  update="previewTable" />
+            <p:calendar value="#{slotTemplateController.endDay}" mindate="#{slotTemplateController.currentDate}" />
+            <h:commandLink actionListener="#{slotTemplateController.createPreView()}" value="#{bundle.ListSlotTemplateCreateSlots}"  update="previewPanel" />
             </p:panel>
             
-            <br />
-            <br />
-            <h:link outcome="/index" value="#{bundle.ListSlotTemplateIndexLink}"/>
-            
+            <h:panelGroup rendered="#{slotTemplateController.renderPreview}" widgetVar="previewPanel">
             <p:dataTable value="#{slotTemplateController.previewSlots}" emptyMessage="#{bundle.ListSlotTemplateSlotPreviewEmpty}"
                          var="item" selection="#{slotTemplateController.selectedPreviewSlots}" widgetVar="previewTable">
                     <p:column selectionMode="multiple" style="width:18px"/>
@@ -152,17 +151,10 @@
                             </f:facet>
                             <h:outputText value="#{item.advisor.name}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <p:commandLink action="#{slotController.prepareView}" value="#{bundle.ListSlotViewLink}"/>
-                            <h:outputText value=" "/>
-                            <p:commandLink action="#{slotController.prepareEdit}" value="#{bundle.ListSlotEditLink}"/>
-                            <h:outputText value=" "/>
-                            <p:commandLink action="#{slotController.destroy}" value="#{bundle.ListSlotDestroyLink}"/>
-                        </p:column>
                     </p:dataTable>
+                <p:commandButton action="#{slotTemplateController.confirm}" value="#{bundle.ListSlotTemplateCreateSlotsConfirm}" />
+            </h:panelGroup>
+            
         </h:form>
         </ui:define>
     </ui:composition>
