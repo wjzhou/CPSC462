@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.fullerton.AcademyAdvisorAppointment.managedBean.admin;
+package edu.fullerton.AcademyAdvisorAppointment.ejb;
 
 import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
 import javax.ejb.Stateless;

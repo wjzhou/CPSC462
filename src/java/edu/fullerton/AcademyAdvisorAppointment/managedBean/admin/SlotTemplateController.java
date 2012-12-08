@@ -1,9 +1,11 @@
-package edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util;
+package edu.fullerton.AcademyAdvisorAppointment.managedBean.admin;
 
 import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.util.JsfUtil;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.util.PaginationHelper;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.SlotTemplateFacade;
+import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
+import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.PaginationHelper;
+import edu.fullerton.AcademyAdvisorAppointment.ejb.SlotTemplateFacade;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -13,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.EnumConverter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -25,7 +28,7 @@ public class SlotTemplateController implements Serializable {
     private SlotTemplate current;
     private DataModel items = null;
     @EJB
-    private edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.SlotTemplateFacade ejbFacade;
+    private edu.fullerton.AcademyAdvisorAppointment.ejb.SlotTemplateFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -81,10 +84,10 @@ public class SlotTemplateController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -98,10 +101,10 @@ public class SlotTemplateController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -131,9 +134,9 @@ public class SlotTemplateController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -222,5 +225,22 @@ public class SlotTemplateController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + SlotTemplate.class.getName());
             }
         }
+    }
+    
+    public SlotTemplate.Day[] getAllDays() {
+        return SlotTemplate.Day.values();
+    }
+
+    public Converter getDayConverter() {
+        return new EnumConverter(SlotTemplate.Day.class);
+    }
+    
+   public Status[] getAllStatus(){
+        final Status[] status={Status.AVAILABLE, Status.INVALID};
+        return status;
+    }
+
+    public Converter getStatusConverter() {
+        return new EnumConverter(Slot.Status.class);
     }
 }

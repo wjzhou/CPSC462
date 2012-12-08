@@ -4,7 +4,11 @@
  */
 package edu.fullerton.AcademyAdvisorAppointment.entity;
 
+import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,9 +17,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,7 +29,15 @@ import javax.validation.constraints.NotNull;
  * @author wujun
  */
 @Entity
+@Table(uniqueConstraints={
+   @UniqueConstraint(columnNames={"adviosr", "templateStartTime", "templateEndTime"})
+})
 public class SlotTemplate implements Serializable {
+         public enum Day {
+           SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+           THURSDAY, FRIDAY, SATURDAY 
+         }
+   
     private static final long serialVersionUID = 1L;
     @TableGenerator(
         name = "TemplateIdGen",
@@ -42,20 +56,36 @@ public class SlotTemplate implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date templateStartTime;
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date templateEndTime;
+    @Basic(optional = false)
+    @NotNull
     @Temporal(TemporalType.TIME)
     private Date slotLength;
     @ManyToOne
     private Location location;
+    private Slot.Status initStatus;
+    Collection<Day> days;
+
+    public SlotTemplate(Long id, Advisor advisor, Date templateStartTime, Date templateEndTime, Date slotLength, Location location, boolean enabled) {
+        this.id = id;
+        this.advisor = advisor;
+        this.templateStartTime = templateStartTime;
+        this.templateEndTime = templateEndTime;
+        this.slotLength = slotLength;
+        this.location = location;
+        this.enabled = enabled;
+    }
+    
     
     boolean enabled;
 
     public SlotTemplate() {
+        this.slotLength=new Time(0, 15, 0); 
     }
 
     public Long getId() {
@@ -113,6 +143,22 @@ public class SlotTemplate implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public Status getInitStatus() {
+        return initStatus;
+    }
+
+    public void setInitStatus(Status initStatus) {
+        this.initStatus = initStatus;
+    }
+
+    public Collection<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(Collection<Day> days) {
+        this.days = days;
+    }  
 
     @Override
     public int hashCode() {
