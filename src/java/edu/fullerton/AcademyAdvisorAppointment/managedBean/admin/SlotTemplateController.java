@@ -1,13 +1,16 @@
 package edu.fullerton.AcademyAdvisorAppointment.managedBean.admin;
 
-import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.PaginationHelper;
+import edu.fullerton.AcademyAdvisorAppointment.ejb.SlotFacade;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.SlotTemplateFacade;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
-
+import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
+import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate.Day;
+import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -19,18 +22,19 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.EnumConverter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+    
 @ManagedBean(name = "slotTemplateController")
 @SessionScoped
 public class SlotTemplateController implements Serializable {
+    @EJB
+    private SlotFacade slotFacade;
 
     private SlotTemplate current;
     private DataModel items = null;
     @EJB
     private edu.fullerton.AcademyAdvisorAppointment.ejb.SlotTemplateFacade ejbFacade;
-    private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public SlotTemplateController() {
@@ -48,22 +52,6 @@ public class SlotTemplateController implements Serializable {
         return ejbFacade;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
 
     public String prepareList() {
         recreateModel();
@@ -72,7 +60,7 @@ public class SlotTemplateController implements Serializable {
 
     public String prepareView() {
         current = (SlotTemplate) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedItemIndex = getItems().getRowIndex();
         return "View";
     }
 
@@ -95,7 +83,7 @@ public class SlotTemplateController implements Serializable {
 
     public String prepareEdit() {
         current = (SlotTemplate) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedItemIndex = getItems().getRowIndex();
         return "Edit";
     }
 
@@ -112,9 +100,8 @@ public class SlotTemplateController implements Serializable {
 
     public String destroy() {
         current = (SlotTemplate) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedItemIndex = getItems().getRowIndex();
         performDestroy();
-        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -146,10 +133,6 @@ public class SlotTemplateController implements Serializable {
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
         }
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
@@ -158,29 +141,13 @@ public class SlotTemplateController implements Serializable {
 
     public DataModel getItems() {
         if (items == null) {
-            items = getPagination().createPageDataModel();
+            return new SlotTemplateDataModle(getFacade().findAll());
         }
         return items;
     }
 
     private void recreateModel() {
         items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -259,5 +226,102 @@ public class SlotTemplateController implements Serializable {
     }  
     public void setSelectedSlotTemplates(SlotTemplate[] selectedSlotTemplates) {  
         this.selectedSlotTemplates = selectedSlotTemplates;  
+    }
+    
+    private Date startDay;
+    private Date endDay;
+
+    public Date getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(Date startDay) {
+        this.startDay = startDay;
+    }
+
+    public Date getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(Date endDay) {
+        this.endDay = endDay;
+    }
+    
+    
+    public void createPreView(){
+        Calendar cInstance = Calendar.getInstance();
+        List<Slot> slots=new ArrayList<Slot>();
+        
+        cInstance.setTime(endDay);
+        cInstance.add(Calendar.DAY_OF_WEEK, 1);
+        Date endDayTime=cInstance.getTime();    
+        
+        cInstance.setTime(startDay);
+        int id = 0;
+        while (cInstance.getTime().before(endDayTime)) {
+            for (SlotTemplate slotTemplate : selectedSlotTemplates) {
+                int startHour = slotTemplate.getTemplateStartTime().getHours();
+                int startMinute = slotTemplate.getTemplateStartTime().getMinutes();
+                int endHour = slotTemplate.getTemplateEndTime().getHours();
+                int endMinute = slotTemplate.getTemplateEndTime().getMinutes();
+                int lengthHour = slotTemplate.getSlotLength().getHours();
+                int lengthMinute = slotTemplate.getSlotLength().getMinutes();
+
+                for (Day day : slotTemplate.getDays()) {
+                    cInstance.set(Calendar.DAY_OF_WEEK, day.getDayOfWeek());
+                    cInstance.set(Calendar.HOUR, endHour);
+                    cInstance.set(Calendar.MINUTE, endMinute);
+                    Date templateEndTime = cInstance.getTime();
+
+                    cInstance.set(Calendar.HOUR, startHour);
+                    cInstance.set(Calendar.MINUTE, startMinute);
+                    cInstance.set(Calendar.SECOND, 0);
+                    cInstance.set(Calendar.MILLISECOND, 0);
+
+                    Date time1 = cInstance.getTime();
+                    
+                    if(time1.after(endDayTime)){
+                        break;
+                    }
+
+                    cInstance.add(Calendar.HOUR, lengthHour);
+                    cInstance.add(Calendar.MINUTE, lengthMinute);
+                    Date time2 = cInstance.getTime();
+
+                    while (time2.compareTo(templateEndTime) <= 0) {
+                        Slot slot = new Slot(time1, time2);
+                        slot.setAdvisor(slotTemplate.getAdvisor());
+                        slot.setId(id++);
+                        slot.setLocation(slotTemplate.getLocation().toString());
+                        slot.setStatus(slotTemplate.getInitStatus());
+                        slots.add(slot);
+                        //slotFacade.create(slot);
+                        cInstance.add(Calendar.HOUR, lengthHour);
+                        cInstance.add(Calendar.MINUTE, lengthMinute);
+                        time1 = time2;
+                        time2 = cInstance.getTime();
+                    }
+                }/*for day inside slotTemplate*/
+            }/*for slotTemplate*/
+            cInstance.add(Calendar.DAY_OF_WEEK, 7);
+        }
+        previewSlots=new SlotDataModle(slots);
+    }
+    
+    private DataModel previewSlots = null;
+    public DataModel getPreviewSlots() {
+        return previewSlots;
+    }
+    boolean renderPreview = false;
+    public boolean renderPreview(){
+        return renderPreview;
+    }
+    
+    Slot[] selectedPreviewSlots;
+    public Slot[] getSelectedPreviewSlots() {  
+        return selectedPreviewSlots;  
+    }  
+    public void setSelectedPreviewSlots(Slot[] selectedPreviewSlots) {  
+        this.selectedPreviewSlots = selectedPreviewSlots;  
     }
 }

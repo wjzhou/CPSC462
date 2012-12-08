@@ -9,16 +9,24 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Admin;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Advisor;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Location;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Reason;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
+import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
+import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate.Day;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Student;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import org.jboss.weld.util.collections.ArraySet;
 
 /**
  *
@@ -27,6 +35,8 @@ import javax.inject.Inject;
 @Singleton
 @Startup
 public class ConfigBean {
+    @EJB
+    private SlotTemplateFacade slotTemplateFacade;
     @EJB
     private LocationFacade locationFacade;
     @EJB
@@ -40,13 +50,13 @@ public class ConfigBean {
         Advisor advisor=new Advisor("Shawn", "Wang", "CS 522C");
         advisor.addAdvisingTypes(Type.GRADUATE);
         
-        Advisor advisor1=new Advisor("Test", "MAN", "CS 522C");
+        Advisor advisor1=new Advisor("Test", "Advisor1", "CS 522C");
         advisor1.addAdvisingTypes(Type.GRADUATE);
         advisor1.addAdvisingTypes(Type.UNDER_GRADUATE);
         
         adminBean.createAdvisor(advisor);
         adminBean.createAdvisor(advisor1);
-        Advisor advisor2=new Advisor("Long", "Name Test", "CS 522C");
+        Advisor advisor2=new Advisor("Test", "Advisor2", "CS 522C");
         advisor2.addAdvisingTypes(Type.UNDER_GRADUATE);
         adminBean.createAdvisor(advisor2);
         
@@ -70,7 +80,21 @@ public class ConfigBean {
         reasonFacade.create(reason1);
         reasonFacade.create(reason2);
         
-         Calendar cInstance = Calendar .getInstance();
+        SlotTemplate slotTemplate=new SlotTemplate();
+        slotTemplate.setAdvisor(advisor);
+        slotTemplate.setEnabled(true);
+        Collection<Day> days=new ArrayList<Day>();
+        days.add(Day.MONDAY);
+        days.add(Day.WEDNESDAY);
+        slotTemplate.setDays(days);
+        slotTemplate.setInitStatus(Slot.Status.AVAILABLE);
+        slotTemplate.setLocation(location);
+        slotTemplate.setTemplateStartTime(new Date(0,0,0,14,0));
+        slotTemplate.setTemplateEndTime(new Date(0,0,0,15,0));
+        slotTemplate.setSlotLength(new Date(0,0,0,0,15));
+        slotTemplateFacade.create(slotTemplate);
+        
+        Calendar cInstance = Calendar .getInstance();
         for (int i = 0; i < 10; i++) {
             cInstance.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
             cInstance.set(Calendar.HOUR_OF_DAY, 14);

@@ -76,7 +76,7 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="&nbsp;"/>
+                            <p:commandButton action="#{slotTemplateController.prepareCreate}" value="Create"/>
                         </f:facet>
                         <h:commandLink action="#{slotTemplateController.prepareView}" value="#{bundle.ListSlotTemplateViewLink}"/>
                         <h:outputText value=" "/>
@@ -87,10 +87,82 @@
                 </p:dataTable>
             </h:panelGroup>
             <br />
-            <h:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ListSlotTemplateCreateLink}"/>
+            
+            <br />
+            <p:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ListSlotTemplateCreateLink}"/>
+            <br />
+            <p:panel>
+            <h:outputText value="Start Day: "/>
+            <p:calendar value="#{slotTemplateController.startDay}"/>
+            <h:outputText value="  End Day:"/>
+            <p:calendar value="#{slotTemplateController.endDay}"/>
+            <h:commandLink actionListener="#{slotTemplateController.createPreView()}" value="#{bundle.ListSlotTemplateCreateSlots}"  update="previewTable" />
+            </p:panel>
+            
             <br />
             <br />
             <h:link outcome="/index" value="#{bundle.ListSlotTemplateIndexLink}"/>
+            
+            <p:dataTable value="#{slotTemplateController.previewSlots}" emptyMessage="#{bundle.ListSlotTemplateSlotPreviewEmpty}"
+                         var="item" selection="#{slotTemplateController.selectedPreviewSlots}" widgetVar="previewTable">
+                    <p:column selectionMode="multiple" style="width:18px"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_starttime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.starttime}">
+                                <f:convertDateTime pattern="MM/dd HH:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_endtime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.endtime}">
+                                <f:convertDateTime pattern="MM/dd HH:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_student}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.student.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reason}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTitle_advisor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.advisor.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <p:commandLink action="#{slotController.prepareView}" value="#{bundle.ListSlotViewLink}"/>
+                            <h:outputText value=" "/>
+                            <p:commandLink action="#{slotController.prepareEdit}" value="#{bundle.ListSlotEditLink}"/>
+                            <h:outputText value=" "/>
+                            <p:commandLink action="#{slotController.destroy}" value="#{bundle.ListSlotDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
         </h:form>
         </ui:define>
     </ui:composition>

@@ -29,31 +29,41 @@ import javax.validation.constraints.NotNull;
  * @author wujun
  */
 @Entity
-@Table(uniqueConstraints={
-   @UniqueConstraint(columnNames={"adviosr", "templateStartTime", "templateEndTime"})
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"adviosr", "templateStartTime", "templateEndTime"})
 })
 public class SlotTemplate implements Serializable {
-         public enum Day {
-           SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-           THURSDAY, FRIDAY, SATURDAY 
-         }
-   
+    //don't know why java have not had build-in support for this
+    public enum Day {
+        SUNDAY(Calendar.SUNDAY),
+        MONDAY(Calendar.MONDAY),
+        TUESDAY(Calendar.TUESDAY),
+        WEDNESDAY(Calendar.WEDNESDAY),
+        THURSDAY(Calendar.THURSDAY),
+        FRIDAY(Calendar.FRIDAY),
+        SATURDAY(Calendar.SATURDAY);
+        int dayOfWeek;
+        Day(int dayOfWeek) {
+            this.dayOfWeek = dayOfWeek;
+        }
+        public int getDayOfWeek(){
+            return dayOfWeek;
+        }
+    }
     private static final long serialVersionUID = 1L;
     @TableGenerator(
         name = "TemplateIdGen",
-        table = "SEQUENCE_GENERATOR",
-        pkColumnName = "GEN_KEY",
-        valueColumnName = "GEN_VALUE",
-        pkColumnValue = "Template_ID",
-        allocationSize = 10)
+    table = "SEQUENCE_GENERATOR",
+    pkColumnName = "GEN_KEY",
+    valueColumnName = "GEN_VALUE",
+    pkColumnValue = "Template_ID",
+    allocationSize = 10)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TemplateIdGen")
     @Column(name = "T_ID")
     private Long id;
-    
     @ManyToOne
     Advisor advisor;
-    
     @Basic(optional = false)
     @NotNull
     @Temporal(TemporalType.TIME)
@@ -81,12 +91,10 @@ public class SlotTemplate implements Serializable {
         this.location = location;
         this.enabled = enabled;
     }
-    
-    
     boolean enabled;
 
     public SlotTemplate() {
-        this.slotLength=new Time(0, 15, 0); 
+        this.slotLength = new Time(0, 15, 0);
     }
 
     public Long getId() {
@@ -159,7 +167,7 @@ public class SlotTemplate implements Serializable {
 
     public void setDays(Collection<Day> days) {
         this.days = days;
-    }  
+    }
 
     @Override
     public int hashCode() {
@@ -181,5 +189,4 @@ public class SlotTemplate implements Serializable {
         }
         return true;
     }
-    
 }

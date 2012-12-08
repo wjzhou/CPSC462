@@ -30,8 +30,9 @@ public class SlotTemplateDataModle extends ListDataModel<SlotTemplate> implement
         List<SlotTemplate> slotTemplates = (List<SlotTemplate>) getWrappedData();  
           
         for(SlotTemplate slotTemplate : slotTemplates) {  
-            if(slotTemplate.getId().equals(rowKey))  
+            if(slotTemplate.getId().equals(Long.valueOf(rowKey))) {
                 return slotTemplate;
+            }
         }  
           
         return null;  

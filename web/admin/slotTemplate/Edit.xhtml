@@ -34,7 +34,8 @@
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_slotLength}" for="slotLength" />
                     <p:calendar pattern="HH:mm" value="#{slotTemplateController.selected.slotLength}" timeOnly="true"
-                                title="#{bundle.CreateSlotTemplateTitle_slotLength}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_slotLength}"/>
+                                title="#{bundle.CreateSlotTemplateTitle_slotLength}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_slotLength}"
+                                minMinute="5" />
                        
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_location}" for="location" />
                     <h:selectOneMenu id="location" value="#{slotTemplateController.selected.location}" title="#{bundle.CreateSlotTemplateTitle_location}" >
