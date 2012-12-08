@@ -8,6 +8,7 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -84,10 +85,10 @@ public class SlotTemplateController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -101,10 +102,10 @@ public class SlotTemplateController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -134,9 +135,9 @@ public class SlotTemplateController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/bundle").getString("SlotTemplateDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SlotTemplateDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -242,5 +243,21 @@ public class SlotTemplateController implements Serializable {
 
     public Converter getStatusConverter() {
         return new EnumConverter(Slot.Status.class);
+    }
+    private List<SlotTemplate> filteredSlotTemplates;
+    public List<SlotTemplate> getFilteredSlotTemplates() {  
+        return filteredSlotTemplates;  
+    }  
+  
+    public void setFilteredSlotTemplates(List<SlotTemplate> filteredSlotTemplates) {  
+        this.filteredSlotTemplates = filteredSlotTemplates;  
+    }
+    
+    SlotTemplate[] selectedSlotTemplates;
+    public SlotTemplate[] getSelectedSlotTemplates() {  
+        return selectedSlotTemplates;  
+    }  
+    public void setSelectedSlotTemplates(SlotTemplate[] selectedSlotTemplates) {  
+        this.selectedSlotTemplates = selectedSlotTemplates;  
     }
 }

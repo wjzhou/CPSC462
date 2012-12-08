@@ -66,6 +66,7 @@ public class SlotTemplate implements Serializable {
     @NotNull
     @Temporal(TemporalType.TIME)
     private Date slotLength;
+    @NotNull
     @ManyToOne
     private Location location;
     private Slot.Status initStatus;

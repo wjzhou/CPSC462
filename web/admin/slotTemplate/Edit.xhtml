@@ -24,11 +24,13 @@
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateStartTime}" for="templateStartTime" />
                     <p:calendar pattern="hh:mm a" id="templateStartTime" value="#{slotTemplateController.selected.templateStartTime}" timeOnly="true" 
-                                title="#{bundle.CreateSlotTemplateTitle_templateStartTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateStartTime}" />
+                                title="#{bundle.CreateSlotTemplateTitle_templateStartTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateStartTime}" 
+                                minHour="8" maxHour="22" />
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateEndTime}" for="templateEndTime" />
                     <p:calendar pattern="hh:mm a" id="templateEndTime" value="#{slotTemplateController.selected.templateEndTime}" timeOnly="true"
-                                title="#{bundle.CreateSlotTemplateTitle_templateEndTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateEndTime}"/>
+                                title="#{bundle.CreateSlotTemplateTitle_templateEndTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateEndTime}"
+                                minHour="8" maxHour="22" />
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_slotLength}" for="slotLength" />
                     <p:calendar pattern="HH:mm" value="#{slotTemplateController.selected.slotLength}" timeOnly="true"
