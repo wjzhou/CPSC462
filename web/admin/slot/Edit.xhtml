@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,28 +16,40 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditSlotLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{slotController.selected.id}" title="#{bundle.EditSlotTitle_id}" />
+                    <h:outputText value="#{bundle.ViewSlotLabel_id}"/>
+                    <h:outputText value="#{slotController.selected.id}" title="#{bundle.ViewSlotTitle_id}"/>
                     <h:outputLabel value="#{bundle.EditSlotLabel_starttime}" for="starttime" />
-                    <h:inputText id="starttime" value="#{slotController.selected.starttime}" title="#{bundle.EditSlotTitle_starttime}" required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_starttime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
+                    <p:calendar pattern="MM/dd/yyyy hh:mm a" id="starttime" value="#{slotController.selected.starttime}"
+                                required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_starttime}" 
+                                minHour="8" maxHour="22" />
                     <h:outputLabel value="#{bundle.EditSlotLabel_endtime}" for="endtime" />
-                    <h:inputText id="endtime" value="#{slotController.selected.endtime}" title="#{bundle.EditSlotTitle_endtime}" required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_endtime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditSlotLabel_status}" for="status" />
-                    <h:inputText id="status" value="#{slotController.selected.status}" title="#{bundle.EditSlotTitle_status}" />
-                    <h:outputLabel value="#{bundle.EditSlotLabel_student}" for="student" />
-                    <h:selectOneMenu id="student" value="#{slotController.selected.student}" title="#{bundle.EditSlotTitle_student}" >
-                        <f:selectItems value="#{studentController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditSlotLabel_description}" for="description" />
-                    <h:inputText id="description" value="#{slotController.selected.description}" title="#{bundle.EditSlotTitle_description}" />
+                    <p:calendar pattern="MM/dd/yyyy hh:mm a" id="endtime" value="#{slotController.selected.endtime}"
+                                required="true" requiredMessage="#{bundle.EditSlotRequiredMessage_endtime}" 
+                                minHour="8" maxHour="22" />
                     <h:outputLabel value="#{bundle.EditSlotLabel_advisor}" for="advisor" />
                     <h:selectOneMenu id="advisor" value="#{slotController.selected.advisor}" title="#{bundle.EditSlotTitle_advisor}" >
                         <f:selectItems value="#{advisorController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_location}" for="location" />
+                    <h:selectOneMenu id="location" value="#{slotController.selected.location}" title="#{bundle.CreateSlotTemplateTitle_location}" >
+                        <f:selectItems value="#{locationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    
+                    <h:outputLabel value="Status:" for="initStatus" />
+                    <p:selectOneMenu id="initStatus" value="#{slotController.selected.status}" converter="#{slotController.statusConverter}">  
+                         <f:selectItems value="#{slotController.allStatus}" />  
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel value="#{bundle.EditSlotLabel_student}" for="student" />
+                    <h:selectOneMenu id="student" value="#{slotController.selected.student}" title="#{bundle.EditSlotTitle_student}" >
+                        <f:selectItems value="#{studentController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Reason:" for="description" />
+                    <h:selectOneMenu id="description" value="#{slotController.selected.reason}" title="#{bundle.EditSlotTitle_description}">
+                    <f:selectItems value="#{reasonController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    
                 </h:panelGrid>
                 <h:commandLink action="#{slotController.update}" value="#{bundle.EditSlotSaveLink}"/>
                 <br />

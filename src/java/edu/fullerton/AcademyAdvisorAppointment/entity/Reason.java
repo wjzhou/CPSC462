@@ -97,7 +97,7 @@ public class Reason implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.fullerton.AcademyAdvisorAppointment.entity.Reason[ id=" + id + " ]";
+        return reason;
     }
     
 }

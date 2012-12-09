@@ -4,8 +4,15 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.PaginationHelper;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.SlotFacade;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Advisor;
+import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
+import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -13,6 +20,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.EnumConverter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -23,10 +31,9 @@ import javax.faces.model.SelectItem;
 public class SlotController implements Serializable {
 
     private Slot current;
-    private DataModel items = null;
     @EJB
     private edu.fullerton.AcademyAdvisorAppointment.ejb.SlotFacade ejbFacade;
-    private PaginationHelper pagination;
+    
     private int selectedItemIndex;
 
     public SlotController() {
@@ -44,31 +51,14 @@ public class SlotController implements Serializable {
         return ejbFacade;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
-
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
     public String prepareView() {
-        current = (Slot) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        current = (Slot) getSlots().getRowData();
+        selectedItemIndex =  getSlots().getRowIndex();
         return "View";
     }
 
@@ -90,8 +80,8 @@ public class SlotController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Slot) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        current = (Slot) getSlots().getRowData();
+        selectedItemIndex = getSlots().getRowIndex();
         return "Edit";
     }
 
@@ -107,10 +97,9 @@ public class SlotController implements Serializable {
     }
 
     public String destroy() {
-        current = (Slot) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        current = (Slot) getSlots().getRowData();
+        selectedItemIndex = getSlots().getRowIndex();
         performDestroy();
-        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -143,20 +132,10 @@ public class SlotController implements Serializable {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
             // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
         }
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
     }
     
     public DataModel getBookedItems(){
@@ -164,23 +143,7 @@ public class SlotController implements Serializable {
     }
 
     private void recreateModel() {
-        items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
+        slots = null;
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -226,5 +189,92 @@ public class SlotController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Slot.class.getName());
             }
         }
+    }
+    
+    private DataModel<Slot> slots=null;
+    public DataModel<Slot> getSlots() {
+        
+        if (slots==null){
+            slots=new SlotDataModle(ejbFacade.findByCondition(
+                startDay,endDay,advisor, statusSet));
+        }
+        /*Calendar c= Calendar.getInstance();
+        c.set(2012, 11, 7);
+        ArrayList<Status> statuss=new ArrayList<Status>();
+        statuss.add(Status.BOOKED);
+        slots=new SlotDataModle(ejbFacade.findByCondition(
+                c.getTime(),endDay,advisor, statuss));*/
+        return slots;
+    }
+    
+    Slot[] selectedSlots;
+    public Slot[] getSelectedSlots() {  
+        return selectedSlots;  
+    }  
+    public void setSelectedSlots(Slot[] selectedSlots) {  
+        this.selectedSlots = selectedSlots;  
+    }
+    
+    Slot[] filteredSlots;
+    public Slot[] getFilteredSlots() {  
+        return filteredSlots;  
+    }  
+    public void setFilteredSlots(Slot[] filteredSlots) {  
+        this.filteredSlots = filteredSlots;  
+    }
+
+    public Converter getStatusConverter() {
+        return new EnumConverter(Status.class);
+    }
+    Date currentDate=new Date();
+    public Date getCurrentDate(){
+        return currentDate;
+    }
+    
+        private Date startDay;
+    private Date endDay;
+
+    public Date getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(Date startDay) {
+        this.startDay = startDay;
+    }
+
+    public Date getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(Date endDay) {
+        this.endDay = endDay;
+    }
+    
+    private Advisor advisor;
+
+    public Advisor getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(Advisor advisor) {
+        this.advisor = advisor;
+    }
+    
+    public Status[] getAllStatus(){
+        return Status.values();
+    }
+    
+    Collection<Status> statusSet=new ArrayList<Status>();
+
+    public Collection<Status> getStatusSet() {
+        return statusSet;
+    }
+
+    public void setStatusSet(Collection<Status> statusSet) {
+        this.statusSet = statusSet;
+    }
+   
+    public void updateTable(){
+        slots=null;
     }
 }

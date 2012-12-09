@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,24 +16,29 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+ 
                     <h:outputText value="#{bundle.ViewSlotLabel_id}"/>
                     <h:outputText value="#{slotController.selected.id}" title="#{bundle.ViewSlotTitle_id}"/>
                     <h:outputText value="#{bundle.ViewSlotLabel_starttime}"/>
                     <h:outputText value="#{slotController.selected.starttime}" title="#{bundle.ViewSlotTitle_starttime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        <f:convertDateTime pattern="MM/dd/yyyy hh:mm a" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewSlotLabel_endtime}"/>
                     <h:outputText value="#{slotController.selected.endtime}" title="#{bundle.ViewSlotTitle_endtime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        <f:convertDateTime pattern="MM/dd/yyyy hh:mm a" />
                     </h:outputText>
+                    <h:outputText value="#{bundle.ViewSlotLabel_advisor}"/>
+                    <h:outputText value="#{slotController.selected.advisor}" title="#{bundle.ViewSlotTitle_advisor}"/>
+                    <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_location}" for="location" />
+                    <h:outputText id="location" value="#{slotController.selected.location}" title="#{bundle.CreateSlotTemplateTitle_location}" />
+                    
                     <h:outputText value="#{bundle.ViewSlotLabel_status}"/>
                     <h:outputText value="#{slotController.selected.status}" title="#{bundle.ViewSlotTitle_status}"/>
                     <h:outputText value="#{bundle.ViewSlotLabel_student}"/>
                     <h:outputText value="#{slotController.selected.student}" title="#{bundle.ViewSlotTitle_student}"/>
-                    <h:outputText value="#{bundle.ViewSlotLabel_description}"/>
-                    <h:outputText value="#{slotController.selected.description}" title="#{bundle.ViewSlotTitle_description}"/>
-                    <h:outputText value="#{bundle.ViewSlotLabel_advisor}"/>
-                    <h:outputText value="#{slotController.selected.advisor}" title="#{bundle.ViewSlotTitle_advisor}"/>
+                    <h:outputText value="Reason:"/>
+                    <h:outputText value="#{slotController.selected.reason}" title="#{bundle.ViewSlotTitle_description}"/>
+
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{slotController.destroyAndView}" value="#{bundle.ViewSlotDestroyLink}"/>

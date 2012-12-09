@@ -47,7 +47,7 @@
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_days}" for="days" />
                     <p:selectManyCheckbox value="#{slotTemplateController.selected.days}" layout="pageDirection" converter="#{slotTemplateController.dayConverter}">                          
                         <f:selectItems value="#{slotTemplateController.allDays}" />                      
-                    </p:selectManyCheckbox>                    
+                    </p:selectManyCheckbox>                  
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{slotTemplateController.create}" value="#{bundle.CreateSlotTemplateSaveLink}" />
