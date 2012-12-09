@@ -25,7 +25,6 @@
                                          var="item" selection="#{slotController.selectedSlots}" widgetVar="table" id="table"
                                         filteredValue="#{slotController.filteredSlots}">
                                          
-                                         >
                                 <p:column style="width:18px"/>
                                 <p:column>
                                     <f:facet name="header">
@@ -63,7 +62,7 @@
                                 </p:column>
                                 <p:column sortedBy="#{item.reason}" filterBy="#{item.reason}" filterMatchMode="contains">
                                     <f:facet name="header">
-                                        <h:outputText value="#{bundle.ListSlotTitle_description}"/>
+                                        <h:outputText value="Reason"/>
                                     </f:facet>
                                     <h:outputText value="#{item.reason}"/>
                                 </p:column>
@@ -82,6 +81,8 @@
                                     <h:commandLink action="#{slotController.prepareEdit}" value="#{bundle.ListSlotEditLink}"/>
                                     <h:outputText value=" "/>
                                     <h:commandLink action="#{slotController.destroy}" value="#{bundle.ListSlotDestroyLink}"/>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{slotController.approve}" value="Approve" rendered="#{item.renderApprove}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGroup>

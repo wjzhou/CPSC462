@@ -44,7 +44,7 @@
                             <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" />
                             
                             <h:outputLabel for="location" value="Location:" />
-                            <h:outputText id="location" value="#{makeAppointmentControl.event.location}" />
+                            <h:outputText id="location" value="#{makeAppointmentControl.event.data.location}" />
                             
                             <p:commandButton type="Cancel" value="Reset" />
                             <p:commandButton value="Confirm" action="#{makeAppointmentControl.confirmAppointment}" ajax="false"/>

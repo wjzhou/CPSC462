@@ -26,12 +26,12 @@
                                 minHour="8" maxHour="22"/>
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateEndTime}" for="templateEndTime" />
-                    <p:calendar pattern="hh:mm a" id="templateEndTime" value="#{slotTemplateController.selected.templateEndTime}" timeOnly="true"
+                    <p:calendar id="templateEndTime" pattern="hh:mm a" value="#{slotTemplateController.selected.templateEndTime}" timeOnly="true"
                                 title="#{bundle.CreateSlotTemplateTitle_templateEndTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateEndTime}"
                                 minHour="8" maxHour="22"/>
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_slotLength}" for="slotLength" />
-                    <p:calendar pattern="HH:mm" value="#{slotTemplateController.selected.slotLength}" timeOnly="true"
+                    <p:calendar id="slotLength" pattern="HH:mm" value="#{slotTemplateController.selected.slotLength}" timeOnly="true"
                                 title="#{bundle.CreateSlotTemplateTitle_slotLength}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_slotLength}"
                                 minMinute="5" />
                        
@@ -45,7 +45,7 @@
                          <f:selectItems value="#{slotTemplateController.allStatus}" />  
                     </p:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_days}" for="days" />
-                    <p:selectManyCheckbox value="#{slotTemplateController.selected.days}" layout="pageDirection" converter="#{slotTemplateController.dayConverter}">                          
+                    <p:selectManyCheckbox id="days" value="#{slotTemplateController.selected.days}" layout="pageDirection" converter="#{slotTemplateController.dayConverter}">                          
                         <f:selectItems value="#{slotTemplateController.allDays}" />                      
                     </p:selectManyCheckbox>                  
                 </h:panelGrid>

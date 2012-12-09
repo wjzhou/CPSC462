@@ -47,7 +47,13 @@ public class ConfigBean {
     private AdminFacade adminFacade;
     @PostConstruct
     public void createData() {
-        Advisor advisor=new Advisor("Shawn", "Wang", "CS 522C");
+        Admin admin=new Admin();
+        admin.setFirstname("Sandra");
+        admin.setLastname("Boulanger");
+        admin.setPassword("123456");
+        admin.setEmail("wujun_zhou@csu.fullerton.edu");
+        adminFacade.create(admin);
+        /*Advisor advisor=new Advisor("Shawn", "Wang", "CS 522C");
         advisor.addAdvisingTypes(Type.GRADUATE);
         
         Advisor advisor1=new Advisor("Test", "Advisor1", "CS 522C");
@@ -60,12 +66,7 @@ public class ConfigBean {
         advisor2.addAdvisingTypes(Type.UNDER_GRADUATE);
         adminBean.createAdvisor(advisor2);
         
-        Admin admin=new Admin();
-        admin.setFirstname("Sandra");
-        admin.setLastname("Boulanger");
-        admin.setPassword("123456");
-        admin.setEmail("wujun_zhou@csu.fullerton.edu");
-        adminFacade.create(admin);
+        
         
         Location location=new Location("CS 578");
         locationFacade.create(location);
@@ -127,7 +128,7 @@ public class ConfigBean {
             cInstance.add(Calendar.DAY_OF_WEEK, 5);
         }
         //adminBean.makeAppointment(student, slot);
-        
+        */
     }
 
     @PreDestroy

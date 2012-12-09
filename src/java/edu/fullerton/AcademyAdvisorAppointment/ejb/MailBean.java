@@ -42,12 +42,12 @@ public class MailBean {
                          new InternetAddress(  
                          person.getEmail(),  
                          person.getName()));
-        Admin admin=configbBean.getAdmin();
-        msg.setFrom(new InternetAddress(  
+//        Admin admin=configbBean.getAdmin();
+        /*msg.setFrom(new InternetAddress(  
                     admin.getEmail(),  
-                    "Jack"));  
+                    "Jack"));*/
   
-        msg.setText("Test Email");  
+        msg.setText(content);  
   
         // Send email.  
         Transport.send(msg);  

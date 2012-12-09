@@ -113,6 +113,6 @@ public class SlotFacade extends AbstractFacade<Slot> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-    
+
     
 }

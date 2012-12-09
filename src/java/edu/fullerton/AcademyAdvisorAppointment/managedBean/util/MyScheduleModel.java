@@ -24,8 +24,18 @@ public class MyScheduleModel implements ScheduleModel,Serializable {
     private List<ScheduleEvent> events;
   //  private boolean inited=false;
     
-    public MyScheduleModel(List<Slot> slots ) {
+    public MyScheduleModel() {
+        events = new ArrayList<ScheduleEvent> ();
+    }
+    public MyScheduleModel(List<Slot> slots) {
         events = new ArrayList<ScheduleEvent> (slots.size());
+        for (Iterator<Slot> it = slots.iterator(); it.hasNext();) {
+            Slot s = it.next();
+            events.add(new AdminScheduleEvent(s));
+        }
+    }
+    
+    public void add(List<Slot> slots) {
         for (Iterator<Slot> it = slots.iterator(); it.hasNext();) {
             Slot s = it.next();
             events.add(new AdminScheduleEvent(s));
@@ -33,6 +43,7 @@ public class MyScheduleModel implements ScheduleModel,Serializable {
 
         //model=new HashMap<String,ScheduleEvent>();
     }
+    
     
     /*public void setEJB(AdminBean adminBean)
     {

@@ -16,9 +16,11 @@
                             <h:outputLabel for="password" value="Password:" />
                             <p:password id="password" value="#{studentControl.loginPassword}"/>
                             <p:commandButton value="login" action="#{studentControl.login}" ajax="false"/>
+                            <ui:remove>
                             <p:commandLink id="forget_password" actionListener="#{studentControl.forgetpassword}" style="margin-right:20px;">  
                                 <h:outputText value="Forget Password" />  
                             </p:commandLink>  
+                            </ui:remove>
                         </p:panelGrid></div>
                     </p:panel>
                     </h:form>

@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,6 +26,8 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import org.jboss.weld.util.collections.ArraySet;
 
 @ManagedBean(name = "slotController")
 @SessionScoped
@@ -37,6 +40,15 @@ public class SlotController implements Serializable {
     private int selectedItemIndex;
 
     public SlotController() {
+    }
+    @PostConstruct
+    public void init(){
+       if(((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("approveMode")!=null){
+           statusSet=new ArrayList<Status>();
+           statusSet.add(Status.BOOKED);
+           advisor=null;
+           startDay=endDay=null;
+       }
     }
 
     public Slot getSelected() {
@@ -276,5 +288,15 @@ public class SlotController implements Serializable {
    
     public void updateTable(){
         slots=null;
+    }
+    
+    public String approve() {
+        current = (Slot) getSlots().getRowData();
+        if (current.getStatus()!=Status.BOOKED) {
+            return null;
+        }
+        current.setStatus(Status.APPROVED);       
+        ejbFacade.edit(current);
+        return null;
     }
 }

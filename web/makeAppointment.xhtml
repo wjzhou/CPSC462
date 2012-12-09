@@ -28,17 +28,12 @@
                                 <h:outputLabel value="Choose Advisor:"/>
                                 <p:selectOneMenu id="advisorChooser" value="#{makeAppointmentControl.advisor}" converter="#{ApplecationManagedBean.advisorConverter}" >
                                     <f:selectItem itemValue="-1" itemLabel="Any Advisor"/>
-                                    <f:selectItems value="#{applecationManagedBean.advisors}" var="advisor"
+                                    <f:selectItems value="#{makeAppointmentControl.advisors}" var="advisor"
                                                    itemValue="#{advisor}" itemLabel="#{advisor.name}" />                  
                                     <p:ajax update="schedule" listener="#{makeAppointmentControl.updateModelBasedOnAdvisor}"/>
                                 </p:selectOneMenu>
-                                <h:outputLabel value="Choose Reason:"/>
-                                <p:selectOneMenu id="reasonChooser" value="#{makeAppointmentControl.reason}" converter="#{applecationManagedBean.reasonConverter}" >
-                                    <f:selectItem itemValue="-1" itemLabel="Any Advisor"/>
-                                    <f:selectItems value="#{applecationManagedBean.reasons}" var="reason"
-                                                   itemValue="#{reason}" itemLabel="#{reason.reason}" />                  
-                                    <p:ajax update="schedule" listener="#{makeAppointmentControl.updateModelBasedOnAdvisor}"/>
-                                </p:selectOneMenu>
+                                
+                                
                                
                                 
                             </p:panel>  
@@ -60,17 +55,26 @@
                             </ui:remove>
                             <h:outputLabel for="from" value="From:" style="font-size: 20px"/>
                             <h:outputText id="from" value="#{makeAppointmentControl.event.startDate}" style="font-size: 20px; color: #045491;">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm a" />
                             </h:outputText>
                                 
                             <h:outputLabel for="to" value="To:" style="font-size: 20px"/>
                             <h:outputText id="to" value="#{makeAppointmentControl.event.endDate}" style="font-size: 20px; color: #045491;">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm a" />
                             </h:outputText>
                                 
                             <h:outputLabel for="advisor" value="Advisor:" style="font-size: 20px"/>
                             <h:outputText id="advisor" value="#{makeAppointmentControl.event.advisorName}" style="font-size: 20px;color: #045491;"/>
                             
+                            <h:outputLabel for="location" value="Location:" style="font-size: 20px"/>
+                            <h:outputText id="location" value="#{makeAppointmentControl.event.data.location}" style="font-size: 20px;color: #045491;"/>
+                            
+                            <h:outputLabel value="Choose Reason:"/>
+                            <p:selectOneMenu id="reasonChooser" value="#{makeAppointmentControl.reason}" converter="#{applecationManagedBean.reasonConverter}" >
+                                    <f:selectItem itemValue="-1" itemLabel="Choose One"/>
+                                    <f:selectItems value="#{applecationManagedBean.reasons}" var="reason"
+                                                   itemValue="#{reason}" itemLabel="#{reason.reason}" />
+                            </p:selectOneMenu>
                             <ui:remove>
                             <h:outputLabel for="student" value="Student:" style="font-size: 20px"/>
                             <h:outputText id="student" value="#{makeAppointmentControl.event.studentName}" style="font-size: 20px; color: #045491;"/>

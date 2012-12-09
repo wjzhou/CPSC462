@@ -183,6 +183,10 @@ public class Slot implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+    
+    public boolean getRenderApprove(){
+        return status==Status.BOOKED;
+    }
 
     @Override
     public int hashCode() {
