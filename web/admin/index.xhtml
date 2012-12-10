@@ -8,21 +8,36 @@
             <h:outputText value="Advisor Appointment Admin System"></h:outputText>
         </ui:define>
         <ui:define name="body">
-        <h:link outcome="/admin/admin/List" value="Show All Admin Items"/>
-        <br />
-        <h:link outcome="/admin/advisor/List" value="Show All Advisor Items"/>
-        <br />
-        <h:link outcome="/admin/location/List" value="Show All Location Items"/>
-        
-        <br />
-        <h:link outcome="/admin/slot/List" value="Show All Slot Items"/>
-        <br />
-        <h:link outcome="/admin/slotTemplate/List" value="Show Slot Template Items"/>
-        <br/>
-        
-        <h:link outcome="/admin/student/List" value="Show All Student Items"/>
-        <br />
-        
+            <br/><br/>
+            <table  align="center" >
+                <tbody>
+                    <tr>
+                    <td> <img src="/AAA/faces/resources/image/admin.jpg" width="40px" height="40px"/></td>
+                        <td style="font-size: 20px;">   <h:link outcome="/admin/admin/List" value="Show All Admin Items" />    </td></tr>
+                    <tr >
+                        <td>                   
+                            <img src="/AAA/faces/resources/image/advisor.jpg" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;"> <h:link outcome="/admin/advisor/List" value="Show All Advisor Items"  /> </td></tr>
+                  <tr>
+                        <td><img src="/AAA/faces/resources/image/location.png" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;">   <h:link outcome="/admin/location/List" value="Show All Location Items"/>  </td></tr> 
+                 <tr >
+                        <td width="60px">
+                            <img src="/AAA/faces/resources/image/calender.jpg" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;">  <h:link outcome="/admin/slot/List" value="Show All Slot Items"/></td></tr>
+                    <tr>
+                        <td width="60px">
+                            <img src="/AAA/faces/resources/image/temp.jpg" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;">  <h:link outcome="/admin/slotTemplate/List" value="Show Slot Template Items"/></td></tr>
+                    <tr>
+                        <td>  <img src="/AAA/faces/resources/image/student.jpg" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;"> <h:link outcome="/admin/student/List" value="Show All Student Items" />   </td></tr>
+                   <tr>
+                        <td>  <img src="/AAA/faces/resources/image/question.jpg" width="40px" height="40px" /></td>
+                        <td style="font-size: 20px;"> <h:link outcome="/admin/reason/List" value="Show All Reasons" />   </td></tr>
+                    </tbody>
+            </table>
+     
         </ui:define>
    </ui:composition>
 
