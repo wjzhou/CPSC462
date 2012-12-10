@@ -33,31 +33,6 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
-    <security-constraint>
-        <display-name>studentConstrain</display-name>
-        <web-resource-collection>
-            <web-resource-name>student</web-resource-name>
-            <description/>
-            <url-pattern>/faces/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description>studnet</description>
-            <role-name>Admin</role-name>
-            <role-name>Student</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <display-name>adminConstrain</display-name>
-        <web-resource-collection>
-            <web-resource-name>adminPages</web-resource-name>
-            <description/>
-            <url-pattern>/faces/admin/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>Admin</role-name>
-        </auth-constraint>
-    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>myRealm</realm-name>

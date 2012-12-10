@@ -27,28 +27,35 @@
         </h:head>
 
         <h:body>
-                    <p:menubar autoSubmenuDisplay="true">
-                        <p:submenu label="Appoitment Manage">
-                                <p:menuitem value="Show Appointments" url="/faces/admin/slot/List.xhtml" />
-                                <p:menuitem value="Review Appointments" url="/faces/admin/slot/List.xhtml?approveMode" />
-                                <p:menuitem value="Add AppointmentSlots" url="/faces/admin/slotTemplate/List.xhtml" />
-                        </p:submenu>
-        
-                       <p:submenu label="Student Manage">
-                           <p:menuitem value="Show Students" url="/faces/admin/student/List.xhtml" />
-                        </p:submenu>
-        
-                        <p:submenu label="Advisor/Admin Manage">
-                           <p:menuitem value="Show Advisors" url="/faces/admin/advisor/List.xhtml" />
-                           <p:menuitem value="Show Admins" url="/faces/admin/admin/List.xhtml" />
-                        </p:submenu>
-        
-                        <p:submenu label="Other">
-                            <p:menuitem value="Show Locations" url="/faces/admin/location/List.xhtml" />
-                            <p:menuitem value="Show Reasons" url="/faces/admin/reason/List.xhtml" />                        
-                        </p:submenu>
-                    </p:menubar>
-                    <ui:insert name="body" />
+            <div><img src="/AAA/faces/resources/image/csbanner.jpg" alt="computer science banner" style="float:right;height: 80px;"/>
+                <h1 style="height: 50px">Welcome to the Admin System!</h1>
+            </div>
+            <h:form>
+            <p:menubar autoSubmenuDisplay="true">
+                <p:submenu label="Appoitment Manage" icon="ui-icon-calendar">
+                    <p:menuitem value="Show Appointments" url="/faces/admin/slot/List.xhtml" />
+                    <p:menuitem value="Review Appointments" url="/faces/admin/slot/List.xhtml?approveMode" />
+                    <p:menuitem value="Add AppointmentSlots" url="/faces/admin/slotTemplate/List.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Student Manage" icon="ui-icon-person">
+                    <p:menuitem value="Show Students" url="/faces/admin/student/List.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Advisor/Admin Manage" icon="ui-icon-gear">
+                    <p:menuitem value="Show Advisors" url="/faces/admin/advisor/List.xhtml" />
+                    <p:menuitem value="Show Admins" url="/faces/admin/admin/List.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="Other" icon="ui-icon-link">
+                    <p:menuitem value="Show Locations" url="/faces/admin/location/List.xhtml" />
+                    <p:menuitem value="Show Reasons" url="/faces/admin/reason/List.xhtml" />                        
+                </p:submenu>
+                 <p:menuitem value="Logout" icon="ui-icon-extlink" action="#{auth.logout()}"/>               
+
+            </p:menubar>
+            </h:form>
+            <ui:insert name="body" />
         </h:body>
 
     </f:view>
