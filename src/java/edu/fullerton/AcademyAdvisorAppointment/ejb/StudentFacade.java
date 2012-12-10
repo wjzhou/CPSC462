@@ -8,6 +8,7 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Person_;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Slot_;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Student;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,7 +42,11 @@ public class StudentFacade extends AbstractFacade<Student> {
         cq.where(cb.equal(s.get(Person_.email), email));
         
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return (Student) q.getResultList().get(0);
+        List<Student> l=q.getResultList();
+        if(l==null) {
+            return null;
+        }
+        return (Student) l.get(0);
     }
     
 }

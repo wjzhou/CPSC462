@@ -21,7 +21,7 @@ import javax.inject.Inject;
  */
 @ManagedBean
 @SessionScoped
-public class StudentRegisterController implements Serializable{
+public class StudentControl implements Serializable{
     @EJB
     private StudentFacade studentFacade;
     @Inject
@@ -29,7 +29,7 @@ public class StudentRegisterController implements Serializable{
     
     private Student student;
     
-    public StudentRegisterController() {
+    public StudentControl() {
         student=new Student();
     }
     
@@ -49,4 +49,9 @@ public class StudentRegisterController implements Serializable{
         auth.loginAfterRegister(student);
         return "makeAppointment";
     }
+
+    public Student getStudent() {
+        return student;
+    }
+    
 }

@@ -38,7 +38,17 @@
         <web-resource-collection>
             <web-resource-name>student</web-resource-name>
             <description/>
-            <url-pattern>/faces/*</url-pattern>
+            <url-pattern>/faces/makeAppointment.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>cancel</web-resource-name>
+            <description/>
+            <url-pattern>/faces/cancelAppointment.xhtml</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>confirm</web-resource-name>
+            <description/>
+            <url-pattern>/faces/confirmAppointment.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>studnet</description>

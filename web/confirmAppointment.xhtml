@@ -12,22 +12,22 @@
                    Confirm Appointment
                     <p:panel header="Student Infomation">   
                         <p:panelGrid id="Student" columns="2">
-                        <h:outputLabel for="nusername" value="Email:" />
-                        <h:outputText id="username" value="#{studentControl.email}" />
+                        <h:outputLabel for="username" value="Email:" />
+                        <h:outputText id="username" value="#{auth.student.email}" />
                        
                         <h:outputLabel for="type" value="Type:" />  
-                        <h:outputText id="type" value="#{studentControl.type}" converter="#{applecationManagedBean.typeConverter}"/>
+                        <h:outputText id="type" value="#{auth.student.type}" converter="#{applecationManagedBean.typeConverter}"/>
                        
                         <h:outputLabel for="cwid" value="Cwid:" />
-                        <h:outputText id="cwid" value="#{studentControl.cwid}"/> 
+                        <h:outputText id="cwid" value="#{auth.student.cwid}"/> 
 
                         <h:outputLabel for="firstName" value="FirstName:" />
-                        <h:outputText id="firstName" value="#{studentControl.firstName}"/>
+                        <h:outputText id="firstName" value="#{auth.student.firstname}"/>
                         <h:outputLabel for="lastName" value="LastName:" />
-                        <h:outputText id="lastName" value="#{studentControl.lastName}"/>
+                        <h:outputText id="lastName" value="#{auth.student.lastname}"/>
 
                         <h:outputLabel for="phone" value="Day time Phone:" /> 
-                        <h:outputText id="phone" value="#{studentControl.phone}"/>
+                        <h:outputText id="phone" value="#{auth.student.phone}"/>
                         </p:panelGrid>
                         </p:panel>
                     

@@ -50,7 +50,7 @@ import org.primefaces.model.ScheduleModel;
 @ManagedBean
 @SessionScoped
 
-public class MakeAppointmentControl implements Serializable{
+public class MakeAppointmentControl {
     @EJB
     private MailBean mailBean;
     @EJB
@@ -60,13 +60,13 @@ public class MakeAppointmentControl implements Serializable{
     
     @Inject
     ApplecationManagedBean applecationManagedBean;
+    
     @Inject
-    Auth auth; 
+    Auth auth;
     //private AvailableSlotModel model;
     //private ScheduleModel model;
     private AdminScheduleEvent event = new AdminScheduleEvent(); 
-    @EJB
-    //private AdminBean adminBean;
+
     
     private MyScheduleModel model;
     private Advisor advisor;

@@ -11,12 +11,14 @@ package edu.fullerton.AcademyAdvisorAppointment.managedBean.student;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.StudentFacade;
 import edu.fullerton.AcademyAdvisorAppointment.entity.Student;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.Principal;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
@@ -24,7 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class Auth {
     private Student student;
     private String username;
@@ -50,7 +52,6 @@ public class Auth {
 
         try {
             request.login(username, password);
-            student = studentFacade.findByEmail(username);
             externalContext.redirect(originalURL);
         } catch (ServletException e) {
             // Handle unknown username/password in request.login().
@@ -71,14 +72,14 @@ public class Auth {
     public void logout() throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
-        externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
+        externalContext.redirect(externalContext.getRequestContextPath() + "/faces/index.xhtml");
     }
     
     public Student getStudent() {
         if (student == null) {
             Principal principal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
             if (principal != null) {
-                student = studentFacade.find(principal.getName());
+                student = studentFacade.findByEmail(principal.getName());
             }
         }
         return student;
