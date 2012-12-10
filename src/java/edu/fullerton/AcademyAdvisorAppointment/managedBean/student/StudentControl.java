@@ -39,17 +39,28 @@ public class StudentControl implements Serializable{
     }
     public String createStudent() throws IOException {
         try{
+            student.setPassword(rawPassword);
              studentFacade.create(student);
         }
         catch (Exception e){
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("login", new FacesMessage("Create student error"));
-            return "login";
+            return "register";
         }
-        auth.loginAfterRegister(student);
+        auth.loginAfterRegister(student.getEmail(),rawPassword);
         return "makeAppointment";
     }
 
+    String rawPassword;
+
+    public String getRawPassword() {
+        return rawPassword;
+    }
+
+    public void setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
+    }
+    
     public Student getStudent() {
         return student;
     }

@@ -43,7 +43,7 @@ public class StudentFacade extends AbstractFacade<Student> {
         
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         List<Student> l=q.getResultList();
-        if(l==null) {
+        if(l==null || l.isEmpty()) {
             return null;
         }
         return (Student) l.get(0);

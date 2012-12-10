@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,100 +10,106 @@
             <h:outputText value="#{bundle.ListSlotTemplateTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-        <h:form styleClass="jsfcrud_list_form">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:panelGroup>
-                <p:dataTable value="#{slotTemplateController.items}" emptyMessage="#{bundle.ListSlotTemplateEmpty}"
-                             var="item" filteredValue="#{slotTemplateController.filteredSlotTemplates}"
-                             selection="#{slotTemplateController.selectedSlotTemplates}">
-                    <p:column selectionMode="multiple" style="width:18px" />
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_id}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column sortBy="#{item.advisor.name}" filterBy="#{item.advisor.name}" filterMatchMode="contains">
-                        <f:facet name="header" >
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_advisor}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.advisor.name}"/>
-                    </p:column>
-                    <p:column sortBy="#{item.templateStartTime}" filterBy="#{item.templateStartTime}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_templateStartTime}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.templateStartTime}">
-                            <f:convertDateTime pattern="hh:mm a" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column sortBy="#{item.templateEndTime}" filterBy="#{item.templateEndTime}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_templateEndTime}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.templateEndTime}">
-                            <f:convertDateTime pattern="hh:mm a" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column sortBy="#{item.slotLength}" filterBy="#{item.slotLength}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_slotLength}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.slotLength}">
-                            <f:convertDateTime pattern="HH:mm" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column sortBy="#{item.slotLength}" filterBy="#{item.slotLength}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_location}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.location}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_initStatus}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.initStatus}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListSlotTemplateTitle_days}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.days}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <p:commandButton action="#{slotTemplateController.prepareCreate}" value="Create"/>
-                        </f:facet>
-                        <h:commandLink action="#{slotTemplateController.prepareView}" value="#{bundle.ListSlotTemplateViewLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{slotTemplateController.prepareEdit}" value="#{bundle.ListSlotTemplateEditLink}"/>
-                        <h:outputText value=" "/>
-                        <h:commandLink action="#{slotTemplateController.destroy}" value="#{bundle.ListSlotTemplateDestroyLink}"/>
-                    </p:column>
-                </p:dataTable>
-            </h:panelGroup>
-            <p:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ListSlotTemplateCreateLink}"/>
-            <br />
-            <h:link outcome="/admin/index.xhtml" value="#{bundle.ListSlotTemplateIndexLink}" />
-            <br/>
-            <h:link outcome="/admin/slot/List.xhtml" value="#{bundle.ListSlotTemplateSlotListLink}" />
-            <br />
-            <br />
-            <p:panel>
-            <h:outputText value="Start Day: "/>
-            <p:calendar value="#{slotTemplateController.startDay}" mindate="#{slotTemplateController.currentDate}"/>
-            <h:outputText value="  End Day:"/>
-            <p:calendar value="#{slotTemplateController.endDay}" mindate="#{slotTemplateController.currentDate}" />
-            <h:commandLink actionListener="#{slotTemplateController.createPreView()}" value="#{bundle.ListSlotTemplateCreateSlots}"  update="previewPanel" />
-            </p:panel>
-            
-            <h:panelGroup rendered="#{slotTemplateController.renderPreview}" widgetVar="previewPanel">
-            <p:dataTable value="#{slotTemplateController.previewSlots}" emptyMessage="#{bundle.ListSlotTemplateSlotPreviewEmpty}"
-                         var="item" selection="#{slotTemplateController.selectedPreviewSlots}" widgetVar="previewTable">
-                    <p:column selectionMode="multiple" style="width:18px"/>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <p:dataTable value="#{slotTemplateController.items}" emptyMessage="#{bundle.ListSlotTemplateEmpty}"
+                                 var="item" filteredValue="#{slotTemplateController.filteredSlotTemplates}"
+                                 selection="#{slotTemplateController.selectedSlotTemplates}">
+                        <p:column selectionMode="multiple" style="width:18px" />
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.advisor.name}" filterBy="#{item.advisor.name}" filterMatchMode="contains">
+                            <f:facet name="header" >
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_advisor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.advisor.name}"/>
+                        </p:column>
+                        <p:column sortBy="#{item.templateStartTime}" filterBy="#{item.templateStartTime}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_templateStartTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.templateStartTime}">
+                                <f:convertDateTime pattern="hh:mm a" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.templateEndTime}" filterBy="#{item.templateEndTime}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_templateEndTime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.templateEndTime}">
+                                <f:convertDateTime pattern="hh:mm a" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.slotLength}" filterBy="#{item.slotLength}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_slotLength}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.slotLength}">
+                                <f:convertDateTime pattern="HH:mm" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{item.location}" filterBy="#{item.location}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_location}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.location}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_initStatus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.initStatus}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSlotTemplateTitle_days}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.days}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:commandButton action="#{slotTemplateController.prepareCreate}" value="Create"/>
+                            </f:facet>
+                            <p:commandLink action="#{slotTemplateController.prepareView}" value="#{bundle.ListSlotTemplateViewLink}"> 
+                                <f:setPropertyActionListener value="#{item}" target="#{slotTemplateController.selected}" />  
+                            </p:commandLink>
+                            <h:outputText value=" "/>
+                            <p:commandLink action="#{slotTemplateController.prepareEdit}" value="#{bundle.ListSlotTemplateEditLink}"> 
+                                <f:setPropertyActionListener value="#{item}" target="#{slotTemplateController.selected}" />  
+                            </p:commandLink>
+                            <h:outputText value=" "/>
+                            <p:commandLink action="#{slotTemplateController.destroy}" value="#{bundle.ListSlotTemplateDestroyLink}"> 
+                                <f:setPropertyActionListener value="#{item}" target="#{slotTemplateController.selected}" />  
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+                <p:commandLink action="#{slotTemplateController.prepareCreate}" value="#{bundle.ListSlotTemplateCreateLink}"/>
+                <br />
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.ListSlotTemplateIndexLink}" />
+                <br/>
+                <h:link outcome="/admin/slot/List.xhtml" value="#{bundle.ListSlotTemplateSlotListLink}" />
+                <br />
+                <br />
+                <p:panel>
+                    <h:outputText value="Start Day: "/>
+                    <p:calendar value="#{slotTemplateController.startDay}" mindate="#{slotTemplateController.currentDate}"/>
+                    <h:outputText value="  End Day:"/>
+                    <p:calendar value="#{slotTemplateController.endDay}" mindate="#{slotTemplateController.currentDate}" />
+                    <h:commandLink actionListener="#{slotTemplateController.createPreView()}" value="#{bundle.ListSlotTemplateCreateSlots}"  update="previewPanel" />
+                </p:panel>
+
+                <h:panelGroup rendered="#{slotTemplateController.renderPreview}" widgetVar="previewPanel">
+                    <p:dataTable value="#{slotTemplateController.previewSlots}" emptyMessage="#{bundle.ListSlotTemplateSlotPreviewEmpty}"
+                                 var="item" selection="#{slotTemplateController.selectedPreviewSlots}" widgetVar="previewTable">
+                        <p:column selectionMode="multiple" style="width:18px"/>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSlotTitle_id}"/>
@@ -140,10 +145,10 @@
                             <h:outputText value="#{item.advisor.name}"/>
                         </p:column>
                     </p:dataTable>
-                <p:commandButton action="#{slotTemplateController.confirm}" value="#{bundle.ListSlotTemplateCreateSlotsConfirm}" />
-            </h:panelGroup>
-            
-        </h:form>
+                    <p:commandButton action="#{slotTemplateController.confirm}" value="#{bundle.ListSlotTemplateCreateSlotsConfirm}" />
+                </h:panelGroup>
+
+            </h:form>
         </ui:define>
     </ui:composition>
 

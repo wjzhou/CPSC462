@@ -50,7 +50,7 @@ import org.primefaces.model.ScheduleModel;
 @ManagedBean
 @SessionScoped
 
-public class MakeAppointmentControl {
+public class MakeAppointmentControl implements Serializable{
     @EJB
     private MailBean mailBean;
     @EJB
@@ -210,10 +210,11 @@ public class MakeAppointmentControl {
         return "congratulation";
     }
     private void sendAppointmentEmail(){
-        String remoteHost = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteHost();
-        int remotePort = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemotePort();
-        String requestContextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        String confirmUrl="http://"+remoteHost+":"+remotePort+requestContextPath+"/faces/admin/slot/List.xhtml?approveMode";        
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest httpServletRequest = (HttpServletRequest)externalContext.getRequest();
+
+        String confirmUrl="http://"+ httpServletRequest.getServerName()+":"+ httpServletRequest.getServerPort()
+                +externalContext.getRequestContextPath()+"/faces/admin/slot/List.xhtml?approveMode";        
         try {
             mailBean.sendMail(applecationManagedBean.getCurrentAdmin(), "New Appointment arrive", "Please visit the following url:\n" +confirmUrl+"\nto review\n\n");
         } catch (NamingException ex) {

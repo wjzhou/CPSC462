@@ -28,8 +28,6 @@
                     <h:inputText id="email" value="#{advisorController.selected.email}" title="#{bundle.EditAdvisorTitle_email}" />
                     <h:outputLabel value="#{bundle.EditAdvisorLabel_phone}" for="phone" />
                     <h:inputText id="phone" value="#{advisorController.selected.phone}" title="#{bundle.EditAdvisorTitle_phone}" />                   
-                    <h:outputLabel value="#{bundle.EditAdvisorLabel_preferredLocation}" for="preferredLocation" />
-                    <h:inputText id="preferredLocation" value="#{advisorController.selected.preferredLocation}" title="#{bundle.EditAdvisorTitle_preferredLocation}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{advisorController.create}" value="#{bundle.CreateAdvisorSaveLink}" />
@@ -38,7 +36,7 @@
                 <h:commandLink action="#{advisorController.prepareList}" value="#{bundle.CreateAdvisorShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/faces/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

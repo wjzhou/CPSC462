@@ -7,6 +7,7 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
 import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate;
 import edu.fullerton.AcademyAdvisorAppointment.entity.SlotTemplate.Day;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.EnumConverter;
@@ -47,6 +49,9 @@ public class SlotTemplateController implements Serializable {
         }
         return current;
     }
+     public void setSelected(SlotTemplate slotTemplate) {
+        this.current=slotTemplate;
+    }
 
     private SlotTemplateFacade getFacade() {
         return ejbFacade;
@@ -59,7 +64,7 @@ public class SlotTemplateController implements Serializable {
     }
 
     public String prepareView() {
-        current = (SlotTemplate) getItems().getRowData();
+        //current = (SlotTemplate) getItems().getRowData();
         selectedItemIndex = getItems().getRowIndex();
         return "View";
     }
@@ -82,7 +87,7 @@ public class SlotTemplateController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (SlotTemplate) getItems().getRowData();
+        //current = (SlotTemplate) getItems().getRowData();
         selectedItemIndex = getItems().getRowIndex();
         return "Edit";
     }
@@ -98,12 +103,14 @@ public class SlotTemplateController implements Serializable {
         }
     }
 
-    public String destroy() {
-        current = (SlotTemplate) getItems().getRowData();
+    public String destroy() throws IOException {
+        //current = (SlotTemplate) getItems().getRowData();
         selectedItemIndex = getItems().getRowIndex();
         performDestroy();
         recreateModel();
-        return "List";
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect(externalContext.getRequestContextPath() + "/faces/admin/slotTemplate/List.xhtml");
+        return "null";
     }
 
     public String destroyAndView() {

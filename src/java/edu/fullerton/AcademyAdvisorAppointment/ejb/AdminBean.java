@@ -59,7 +59,7 @@ public class AdminBean implements Serializable{
 
     public String editStudent(Student student) {
         em.merge(student);
-
+ 
         return "editedStudent";
     }
 

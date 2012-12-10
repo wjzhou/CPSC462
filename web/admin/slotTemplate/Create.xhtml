@@ -11,54 +11,58 @@
             <h:outputText value="#{bundle.CreateSlotTemplateTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h:form>
+                <p:panel id="panel">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_advisor}" for="advisor" />
                     <h:selectOneMenu id="advisor" value="#{slotTemplateController.selected.advisor}" title="#{bundle.CreateSlotTemplateTitle_advisor}" >
                         <f:selectItems value="#{advisorController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateStartTime}" for="templateStartTime" />
-                    <p:calendar pattern="hh:mm a" id="templateStartTime" value="#{slotTemplateController.selected.templateStartTime}" timeOnly="true" 
-                                title="#{bundle.CreateSlotTemplateTitle_templateStartTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateStartTime}" 
-                                minHour="8" maxHour="22"/>
+                    <h:inputText value="#{slotTemplateController.selected.templateStartTime}" id="templateStartTime" required="true">
+                       <f:convertDateTime pattern="HH:mm" />
+                   </h:inputText>
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_templateEndTime}" for="templateEndTime" />
-                    <p:calendar id="templateEndTime" pattern="hh:mm a" value="#{slotTemplateController.selected.templateEndTime}" timeOnly="true"
-                                title="#{bundle.CreateSlotTemplateTitle_templateEndTime}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_templateEndTime}"
-                                minHour="8" maxHour="22"/>
+                    
+                    <h:inputText value="#{slotTemplateController.selected.templateEndTime}" id="templateEndTime" required="true">
+                       <f:convertDateTime pattern="HH:mm" />
+                   </h:inputText>
                         
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_slotLength}" for="slotLength" />
-                    <p:calendar id="slotLength" pattern="HH:mm" value="#{slotTemplateController.selected.slotLength}" timeOnly="true"
-                                title="#{bundle.CreateSlotTemplateTitle_slotLength}" required="true" requiredMessage="#{bundle.CreateSlotTemplateRequiredMessage_slotLength}"
-                                minMinute="5" />
+                    <h:inputText value="#{slotTemplateController.selected.slotLength}" id="slotLength" required="true">
+                       <f:convertDateTime pattern="HH:mm" />
+                   </h:inputText>
                        
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_location}" for="location" />
                     <h:selectOneMenu id="location" value="#{slotTemplateController.selected.location}" title="#{bundle.CreateSlotTemplateTitle_location}" >
                         <f:selectItems value="#{locationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_initStatus}" for="initStatus" />
-                    <p:selectOneMenu id="initStatus" value="#{slotTemplateController.selected.initStatus}" 
+                    <h:selectOneMenu id="initStatus" value="#{slotTemplateController.selected.initStatus}" 
                                           title="#{bundle.CreateSlotTemplateTitle_initStatus}" converter="#{slotTemplateController.statusConverter}">  
                          <f:selectItems value="#{slotTemplateController.allStatus}" />  
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateSlotTemplateLabel_days}" for="days" />
-                    <p:selectManyCheckbox id="days" value="#{slotTemplateController.selected.days}" layout="pageDirection" converter="#{slotTemplateController.dayConverter}">                          
+                    <h:selectManyCheckbox id="days" value="#{slotTemplateController.selected.days}" layout="pageDirection" converter="#{slotTemplateController.dayConverter}">                          
                         <f:selectItems value="#{slotTemplateController.allDays}" />                      
-                    </p:selectManyCheckbox>                  
+                    </h:selectManyCheckbox>                  
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{slotTemplateController.create}" value="#{bundle.CreateSlotTemplateSaveLink}" />
+               <h:commandLink action="#{slotTemplateController.update}" value="#{bundle.CreateSlotTemplateSaveLink}" />
                 <br />
                 <br />
                 <h:commandLink action="#{slotTemplateController.prepareList}" value="#{bundle.CreateSlotTemplateShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateSlotTemplateIndexLink}"/>
+                </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>
-
+       
 </html>

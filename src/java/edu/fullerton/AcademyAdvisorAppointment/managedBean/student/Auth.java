@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean
 @ViewScoped
-public class Auth {
+public class Auth implements Serializable{
     private Student student;
     private String username;
     private String password;
@@ -58,12 +58,12 @@ public class Auth {
             context.addMessage(null, new FacesMessage("Username or password error"));
         }
     }
-    public void loginAfterRegister(Student student) throws IOException{
+    public void loginAfterRegister(String username, String password) throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         try {
-            request.login(student.getEmail(), student.getPassword());
+            request.login(username, password);
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage("Internal error."));
         }

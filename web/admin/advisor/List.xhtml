@@ -60,12 +60,6 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAdvisorTitle_preferredLocation}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.preferredLocation}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{advisorController.prepareView}" value="#{bundle.ListAdvisorViewLink}"/>
@@ -80,7 +74,7 @@
                 <h:commandLink action="#{advisorController.prepareCreate}" value="#{bundle.ListAdvisorCreateLink}"/>
                 <br />
                 <br /> 
-                <h:link outcome="/faces/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

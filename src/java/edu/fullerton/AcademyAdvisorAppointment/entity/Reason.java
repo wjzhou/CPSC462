@@ -23,15 +23,9 @@ import javax.persistence.TableGenerator;
         @NamedQuery(name = "Reason.findAll", query = "SELECT r FROM Reason r")})
 public class Reason implements Serializable {
     private static final long serialVersionUID = 1L;
-    @TableGenerator(
-        name = "ReasonIdGen",
-        table = "SEQUENCE_GENERATOR",
-        pkColumnName = "GEN_KEY",
-        valueColumnName = "GEN_VALUE",
-        pkColumnValue = "Reason_ID",
-        allocationSize = 10)
+   
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ReasonIdGen")
+    @GeneratedValue()
     @Column(name = "R_ID")
     private Long id;
     private String reason;

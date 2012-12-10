@@ -38,15 +38,9 @@ import javax.validation.constraints.Pattern;
     })
 public class Person implements Serializable {
     protected static final long serialVersionUID = 1L;
-    @TableGenerator(
-        name = "PersonIdGen",
-        table = "SEQUENCE_GENERATOR",
-        pkColumnName = "GEN_KEY",
-        valueColumnName = "GEN_VALUE",
-        pkColumnValue = "Person_ID",
-        allocationSize = 10)
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PersonIdGen")
+    @GeneratedValue()
     protected Long id;
     @NotNull
     @Column(name = "FIRSTNAME")

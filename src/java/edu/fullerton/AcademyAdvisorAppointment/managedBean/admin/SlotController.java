@@ -206,16 +206,10 @@ public class SlotController implements Serializable {
     private DataModel<Slot> slots=null;
     public DataModel<Slot> getSlots() {
         
-        if (slots==null){
+       // if (slots==null){
             slots=new SlotDataModle(ejbFacade.findByCondition(
                 startDay,endDay,advisor, statusSet));
-        }
-        /*Calendar c= Calendar.getInstance();
-        c.set(2012, 11, 7);
-        ArrayList<Status> statuss=new ArrayList<Status>();
-        statuss.add(Status.BOOKED);
-        slots=new SlotDataModle(ejbFacade.findByCondition(
-                c.getTime(),endDay,advisor, statuss));*/
+        //}
         return slots;
     }
     

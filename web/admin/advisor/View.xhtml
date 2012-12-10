@@ -29,9 +29,7 @@
                     <h:outputText value="#{bundle.ViewAdvisorLabel_email}"/>
                     <h:outputText value="#{advisorController.selected.email}" title="#{bundle.ViewAdvisorTitle_email}"/>
                     <h:outputText value="#{bundle.ViewAdvisorLabel_phone}"/>
-                    <h:outputText value="#{advisorController.selected.phone}" title="#{bundle.ViewAdvisorTitle_phone}"/>               
-                    <h:outputText value="#{bundle.ViewAdvisorLabel_preferredLocation}"/>
-                    <h:outputText value="#{advisorController.selected.preferredLocation}" title="#{bundle.ViewAdvisorTitle_preferredLocation}"/>
+                    <h:outputText value="#{advisorController.selected.phone}" title="#{bundle.ViewAdvisorTitle_phone}"/>
                 </h:panelGrid>
                 <br />
                 <br />
@@ -42,7 +40,7 @@
                 <h:commandLink action="#{advisorController.prepareList}" value="#{bundle.ViewAdvisorShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/faces/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
+                <h:link outcome="/admin/index.xhtml" value="#{bundle.CreateLocationIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

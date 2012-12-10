@@ -16,9 +16,9 @@
                         <h:outputLabel for="nusername" value="Email:" />
                         <p:inputText id="nusername" value="#{studentControl.student.email}"/>
                         <h:outputLabel for="npassword" value="Password:" />
-                        <p:password id="npassword" value="#{studentControl.student.password}" match="npassword2" label="Password 1" required="true"/>
+                        <p:password id="npassword" value="#{studentControl.rawPassword}" match="npassword2" label="Password 1" required="true"/>
                         <h:outputLabel for="npassword2" value="Re-enter password:" />
-                        <p:password id="npassword2" value="#{studentControl.student.password}" label="Password 2" required="true"/>
+                        <p:password id="npassword2" value="#{studentControl.rawPassword}" label="Password 2" required="true"/>
                         <h:outputLabel for="type" value="Type:" /> 
                         <p:selectOneMenu id="type" value="#{studentControl.student.type}"  converter="#{applecationManagedBean.typeConverter}">
                             <f:selectItems value="#{applecationManagedBean.studentTypes}" var="studentType" itemValue="#{studentType}" itemLabel="#{studentType.name}" />

@@ -27,10 +27,10 @@
         </h:head>
 
         <h:body>
-            <div><img src="/AAA/faces/resources/image/csbanner.jpg" alt="computer science banner" style="float:right;height: 80px;"/>
+            <div><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner" style="float:right;height: 80px;"/>
                 <h1 style="height: 50px">Welcome to the Admin System!</h1>
             </div>
-            <h:form>
+            
             <p:menubar autoSubmenuDisplay="true">
                 <p:submenu label="Appoitment Manage" icon="ui-icon-calendar">
                     <p:menuitem value="Show Appointments" url="/faces/admin/slot/List.xhtml" />
@@ -51,10 +51,10 @@
                     <p:menuitem value="Show Locations" url="/faces/admin/location/List.xhtml" />
                     <p:menuitem value="Show Reasons" url="/faces/admin/reason/List.xhtml" />                        
                 </p:submenu>
-                 <p:menuitem value="Logout" icon="ui-icon-extlink" action="#{auth.logout()}"/>               
+                           
 
             </p:menubar>
-            </h:form>
+           
             <ui:insert name="body" />
         </h:body>
 
