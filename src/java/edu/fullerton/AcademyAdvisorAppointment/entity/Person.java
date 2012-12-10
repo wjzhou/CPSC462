@@ -25,7 +25,6 @@ import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import sun.misc.BASE64Encoder;
 
 /**
  *

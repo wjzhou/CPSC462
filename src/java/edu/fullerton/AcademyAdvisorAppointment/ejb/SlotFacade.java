@@ -108,11 +108,15 @@ public class SlotFacade extends AbstractFacade<Slot> {
             predicates.add(statusCondition);
         }
         cq.where(predicates.toArray(new Predicate[predicates.size()]));
-        //cq.where(cb.greaterThanOrEqualTo(s.get(Slot_.starttime),startDay));
         
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-
+    
+    public List<Slot> findByAdvisor(Advisor advisor) {
+        Query createNamedQuery = em.createNamedQuery("Slot.findByAdvisor")
+                .setParameter("advisor", advisor);
+        return createNamedQuery.getResultList();
+    }
     
 }

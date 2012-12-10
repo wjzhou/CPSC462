@@ -20,7 +20,7 @@
                     <h:outputLabel value="#{bundle.EditAdvisorLabel_lastname}" for="lastname" />
                     <h:inputText id="lastname" value="#{advisorController.selected.lastname}" title="#{bundle.EditAdvisorTitle_lastname}" />
                     <h:outputLabel value="#{bundle.EditAdvisorLabel_advisingTypes}" for="advisingTypes" />
-                    <h:selectManyCheckbox value="#{advisorController.selected.advisingTypesOptions}">  
+                    <h:selectManyCheckbox id="advisingTypes" value="#{advisorController.selected.advisingTypesOptions}">  
                       <f:selectItem itemLabel="Undergraduate Advisor" itemValue="U" />  
                       <f:selectItem itemLabel="Graduate Advisor" itemValue="G" />   
                     </h:selectManyCheckbox>

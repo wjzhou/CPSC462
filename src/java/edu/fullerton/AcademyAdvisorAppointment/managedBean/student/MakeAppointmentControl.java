@@ -4,7 +4,6 @@
  */
 package edu.fullerton.AcademyAdvisorAppointment.managedBean.student;
 
-import edu.fullerton.AcademyAdvisorAppointment.ejb.AdminBean;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.AdvisorFacade;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.MailBean;
 import edu.fullerton.AcademyAdvisorAppointment.ejb.SlotFacade;
@@ -15,11 +14,14 @@ import edu.fullerton.AcademyAdvisorAppointment.entity.Slot.Status;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.ApplecationManagedBean;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.AdminScheduleEvent;
 import edu.fullerton.AcademyAdvisorAppointment.managedBean.admin.util.JsfUtil;
+import edu.fullerton.AcademyAdvisorAppointment.managedBean.util.MyScheduleModel;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +31,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.EnumConverter;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -36,15 +42,6 @@ import org.primefaces.event.ScheduleEntrySelectEvent;
 import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
-import edu.fullerton.AcademyAdvisorAppointment.managedBean.util.MyScheduleModel;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.bean.ManagedProperty;
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -63,14 +60,14 @@ public class MakeAppointmentControl implements Serializable{
     
     @Inject
     ApplecationManagedBean applecationManagedBean;
+    @Inject
+    Auth auth; 
     //private AvailableSlotModel model;
     //private ScheduleModel model;
     private AdminScheduleEvent event = new AdminScheduleEvent(); 
     @EJB
-    private AdminBean adminBean;
+    //private AdminBean adminBean;
     
-    @ManagedProperty(value="#{studentControl}")
-    private StudentControl studentControl;
     private MyScheduleModel model;
     private Advisor advisor;
     private Reason reason;
@@ -85,14 +82,6 @@ public class MakeAppointmentControl implements Serializable{
     public ScheduleModel getModel(){
         updateModel();
         return model;
-    }
-
-    public StudentControl getStudentControl() {
-        return studentControl;
-    }
-
-    public void setStudentControl(StudentControl studentControl) {
-        this.studentControl = studentControl;
     }
     
     public Advisor getAdvisor() {
@@ -185,47 +174,48 @@ public class MakeAppointmentControl implements Serializable{
         return new EnumConverter(Status.class);
     }
     
-      
     public void updateModelBasedOnAdvisor(){
         List<Slot> allSlots;
         if (advisor==null) {
             model=new MyScheduleModel();
             for(Advisor advisor : getAdvisors()){
-                 allSlots = adminBean.getSlotsByAdvisor(advisor);
+                 allSlots = slotFacade.findByAdvisor(advisor);
                  model.add(allSlots);
             }
         }
         else {
-            allSlots = adminBean.getSlotsByAdvisor(advisor);
+            allSlots = slotFacade.findByAdvisor(advisor);
             model=new MyScheduleModel(allSlots);
         }
     }
     public String confirmAppointment(){
-        /*if (slotFacade.haveAppointMent(studentControl.getStudent())){           
-        //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "test of add message","detail");         
-        //addMessage(message);  
-        return "oneAppointment";
-        }*/
         try{
-            if (event.getData().getStatus()!=Status.AVAILABLE){
+            Slot slot=event.getData();
+            if (slot.getStatus()!=Status.AVAILABLE){
                 JsfUtil.addErrorMessage("The status of slot is not available, please try again");
                 return "tryAgain";
             }
-            event.getData().setStatus(Status.BOOKED);
-            event.getData().setStudent(studentControl.getStudent());         
+            slot.setStatus(Status.BOOKED);
+            slot.setReason(reason);
+            slot.setStudent(auth.getStudent());         
             slotFacade.edit(event.getData());
         }
         catch(Exception e){
+            JsfUtil.addErrorMessage("Sorry the appointment have not been completed successful."
+                    + "May be another student has got it just before you. Please try again");
             return "tryAgain";
         }
         
-        String remoteAddr = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr();
+        sendAppointmentEmail();
+        return "congratulation";
+    }
+    private void sendAppointmentEmail(){
         String remoteHost = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteHost();
         int remotePort = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemotePort();
         String requestContextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        String confirmUrl="http://"+remoteHost+":"+remotePort+requestContextPath+"/faces/admin/slot/List.xhtml";        
+        String confirmUrl="http://"+remoteHost+":"+remotePort+requestContextPath+"/faces/admin/slot/List.xhtml?approveMode";        
         try {
-            mailBean.sendMail(applecationManagedBean.getCurrentAdmin(), "New Appointment arrive", "Please visit the following url:" +confirmUrl+"to review\n\n");
+            mailBean.sendMail(applecationManagedBean.getCurrentAdmin(), "New Appointment arrive", "Please visit the following url:\n" +confirmUrl+"\nto review\n\n");
         } catch (NamingException ex) {
             Logger.getLogger(MakeAppointmentControl.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
@@ -233,11 +223,10 @@ public class MakeAppointmentControl implements Serializable{
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(MakeAppointmentControl.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        return "congratulation";
     }
+    
     public List<Slot> getSlotByStudent(){
-        return slotFacade.findByStudent(studentControl.getStudent());
+        return slotFacade.findByStudent(auth.getStudent());
     }
 
     public Slot getSelectedSlot() {
@@ -251,19 +240,19 @@ public class MakeAppointmentControl implements Serializable{
     public String cancelAppointment(){
         try{
             selectedSlot.setStatus(Status.AVAILABLE);
-            selectedSlot.setStudent(null);         
+            selectedSlot.setStudent(null);
+            selectedSlot.setReason(null);
             slotFacade.edit(selectedSlot);
         }
         catch(Exception e){
-            return "InternalError";
+            JsfUtil.addErrorMessage("InternalError");
         }
-            
         return null;
     }
     private List<Advisor> advisors;
     public List<Advisor> getAdvisors(){
         if (advisors==null){
-            advisors=advisorFacade.findByType(studentControl.getType());
+            advisors=advisorFacade.findByType(auth.getStudent().getType());
         }
         return advisors;
     }

@@ -8,61 +8,24 @@
     <body>
         <ui:composition template="./studentTemplate.xhtml">
             <ui:define name="body">
-                <h:form>               
-                    <p:panel header="Login">     <div style="background-color:#c3c9b8;">                  
+                <h:form>
+                    <p:panel header="Login" style="background-color:#c3c9b8;"> <div >
                         <p:panelGrid id="loginform" columns="2"> 
                             <h:outputLabel for="username" value="Email:" />
-                            <p:inputText id="username" value="#{studentControl.loginEmail}"/>
+                            <p:inputText id="username" value="#{auth.username}"/>
                             <h:outputLabel for="password" value="Password:" />
-                            <p:password id="password" value="#{studentControl.loginPassword}"/>
-                            <p:commandButton value="login" action="#{studentControl.login}" ajax="false"/>
+                            <p:password id="password" value="#{auth.password}"/>
+                            <p:commandButton value="Login" action="#{auth.login()}" ajax="false"/>
+                            <p:commandButton value="Register" action="register.xhtml" ajax="false"/>
                             <ui:remove>
                             <p:commandLink id="forget_password" actionListener="#{studentControl.forgetpassword}" style="margin-right:20px;">  
                                 <h:outputText value="Forget Password" />  
-                            </p:commandLink>  
+                            </p:commandLink>
                             </ui:remove>
                         </p:panelGrid></div>
                     </p:panel>
-                    </h:form>
-                <h:form>
-                    <p:panel header="New Student Express Register">   <div style="background-color:#c3c9b8;"> 
-                            <b>Note:</b><br/> If this is your first time using this appointment system with us, please enter an email address and create a password for your account. 
-                                <br/>Your account provides us information to better service you and allows you to conveniently view your appointment, cancel appointment, and change information.
-                        <p:panelGrid id="newStudent" columns="2">
-                        <h:outputLabel for="nusername" value="Email:" />
-                        <p:inputText id="nusername" value="#{studentControl.email}"/>
-                        <h:outputLabel for="npassword" value="Password:" />
-                        <p:password id="npassword" value="#{studentControl.password}" match="npassword2" label="Password 1" required="true"/>
-                        <h:outputLabel for="npassword2" value="Re-enter password:" />
-                        <p:password id="npassword2" value="#{studentControl.password}" label="Password 2" required="true"/>
-                        <h:outputLabel for="type" value="Type:" /> 
-                        <p:selectOneMenu id="type" value="#{studentControl.type}"  converter="#{applecationManagedBean.typeConverter}">
-                            <f:selectItems value="#{applecationManagedBean.studentTypes}" var="studentType" itemValue="#{studentType}" itemLabel="#{studentType.name}" />
-                        </p:selectOneMenu>
-                        <ui:remove>
-                            <p:selectOneMenu id="type" value="#{availableSlotBean.status}" converter="#{availableSlotBean.statusConverter}" >
-                                <f:selectItems value="#{availableSlotBean.statusList}"/> 
-                            </p:selectOneMenu>  
-                        </ui:remove>
-
-                        <h:outputLabel for="cwid" value="Cwid:" />
-                        <p:inputText id="cwid" value="#{studentControl.cwid}" /> 
-
-                        <h:outputLabel for="firstName" value="FirstName:" />
-                        <p:inputText id="firstName" value="#{studentControl.firstName}"/>
-                        <h:outputLabel for="lastName" value="LastName:" />
-                        <p:inputText id="lastName" value="#{studentControl.lastName}"/>
-
-                        <h:outputLabel for="phone" value="Day time Phone:" />
-                        <p:inputText id="phone" value="#{studentControl.phone}"/>
-
-                        <p:commandButton type="reset" value="Reset" />
-                        <p:commandButton value="register" action="#{studentControl.createStudent}" ajax="false"/>
-                        </p:panelGrid> </div>
-                        </p:panel>
                 </h:form>
             </ui:define>
-
         </ui:composition>
 
     </body>

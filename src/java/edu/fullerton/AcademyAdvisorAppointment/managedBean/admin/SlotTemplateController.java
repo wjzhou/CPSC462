@@ -346,6 +346,7 @@ public class SlotTemplateController implements Serializable {
         renderPreview=false;
         startDay=null;
         endDay=null;
+        
         return "List";      
     }
     Date currentDate=new Date();

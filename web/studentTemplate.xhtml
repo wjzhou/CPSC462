@@ -5,7 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:event type="javax.faces.event.PreRenderViewEvent" listener="#{applecationManagedBean.preRenderView}"/>
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -18,11 +17,9 @@
         </h:head>
        
         <h:body>
-            <p:layout  fullPage="true">
-
-                <p:layoutUnit position="north" style="border:none" size="150" resizable="false" closable="false" collapsible="true" >
+               
                   <div align="center"><img src="http://cs.fullerton.edu/images/csbanner.jpg" alt="computer science banner"/></div>
-                   <table width="800px" border="0" height="30px" style="background-image:url(http://cs.fullerton.edu/images/navbarbg.jpg)" align="center">
+                   <table width="900px" border="0" height="30px" style="background-image:url(http://cs.fullerton.edu/images/navbarbg.jpg)" align="center">
       <tbody><tr>
 
         <td align="right" class="nav"> |
@@ -33,11 +30,24 @@
             <a href="http://www.csumentor.com" target="_blank">Admissions</a></td>
       </tr>
     </tbody></table>
-                </p:layoutUnit>
-
-                 <p:layoutUnit position="south" size="90" closable="true" collapsible="true">
-                   
-<table width="900px" align="center" cellspacing="0" cellpadding="0" style="border: 0px; background-color:#a8ad99">
+                  <div align="center" >
+                    <h:form>                  
+                    <p:menubar autoSubmenuDisplay="true" style="width:900px;">                           
+                            <p:menuitem value="Make Appoinement" url="/faces/makeAppointment.xhtml"/>
+                            <p:menuitem value="View/Edit Appoinement" url="/faces/editAppointment.xhtml"/>
+                            <p:menuitem value="Login" url="/faces/login.xhtml" />
+                            <p:menuitem value="Logout" action="#{auth.logout()}" />
+                  
+                    </p:menubar>
+                    </h:form>
+              
+                    <p:growl id="growl" showDetail="true" sticky="true" /> 
+                    <p:panel style="width:900px;">
+                    <ui:insert name="body"/>   
+                    </p:panel>
+                    </div>
+            
+            <table width="900px" align="center" cellspacing="0" cellpadding="0" style="border: 0px; background-color:#a8ad99">
     <tbody><tr>
         <td>
             <table cellspacing="0" cellpadding="5" style="border: none; text-align: justify">
@@ -53,24 +63,6 @@
 </td>
     </tr>
   </tbody></table>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="200" header="Options" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Make Appoinement" url="/faces/makeAppointment.xhtml"/>
-                            <p:menuitem value="View/Edit Appoinement" url="/faces/editAppointment.xhtml"/>
-                            <p:menuitem value="Login" url="/faces/login.xhtml" />
-                            <p:menuitem value="Logout" url="/faces/logout.xhtml" />
-                        </p:submenu>
-                    </p:menu>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
-                    <p:growl id="growl" showDetail="true" sticky="true" /> 
-                    <ui:insert name="body" />   
-                </p:layoutUnit>
-</p:layout>
         </h:body>
 
     </f:view>

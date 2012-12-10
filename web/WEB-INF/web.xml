@@ -33,22 +33,45 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
-    <login-config id="LoginConfig_1">
-        <auth-method>FORM</auth-method>
-        <realm-name>jdbcRealm</realm-name>
-        <form-login-config id="FormLoginConfig_1">
-            <form-login-page>/login.xhtml</form-login-page>
-            <form-error-page>/login.xhtml</form-error-page>
-        </form-login-config>
-    </login-config>
     <security-constraint>
+        <display-name>studentConstrain</display-name>
         <web-resource-collection>
-            <web-resource-name>Secure Pages</web-resource-name>
+            <web-resource-name>student</web-resource-name>
             <description/>
-            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/faces/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>Admins</role-name>
+            <description>studnet</description>
+            <role-name>Admin</role-name>
+            <role-name>Student</role-name>
         </auth-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>adminConstrain</display-name>
+        <web-resource-collection>
+            <web-resource-name>adminPages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>myRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/login.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>Student</role-name>
+    </security-role>
 </web-app>
